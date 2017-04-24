@@ -9,6 +9,9 @@ import {EventService} from './services/event.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule } from '@angular/material';
 import 'hammerjs';
+import {ChatService} from './services/chat.service';
+import { ChatComponent } from './chat/chat.component';
+
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ClubComponent } from './club/club.component';
@@ -28,6 +31,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     EventComponent,
+    ChatComponent,
     HomeComponent,
     ClubComponent,
     CreatClubComponent,
@@ -42,7 +46,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
   ],
-  providers: [EventService],
+  providers: [EventService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
