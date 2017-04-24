@@ -12,11 +12,15 @@ import 'hammerjs';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ClubComponent } from './club/club.component';
+import { CreatClubComponent } from './club/creat-club/creat-club.component';
+import { DetailClubComponent } from './club/detail-club/detail-club.component';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
   { path: 'event', component: EventComponent },
   { path: 'club', component: ClubComponent },
+  { path: 'club/new', component: CreatClubComponent },
+  { path: 'club/:id', component: DetailClubComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full'}
 ];
 
@@ -25,7 +29,9 @@ const appRoutes: Routes = [
     AppComponent,
     EventComponent,
     HomeComponent,
-    ClubComponent
+    ClubComponent,
+    CreatClubComponent,
+    DetailClubComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
