@@ -1,0 +1,44 @@
+<md-card class="event-card">
+  <md-card-title>Create Event</md-card-title>
+  <form [formGroup] = "eventForm" (ngSubmit) = "onSubmit()">
+  <md-input-container>
+    <input mdInput placeholder="Event Name" type="text" id="eventName" name="eventName" #eventName formControlName="eventName" value="Winter Cycling">
+    <small class="invalid" [hidden]="eventForm.controls['eventName'].valid || (eventForm.controls['eventName'].pristine && !submitted)">
+      Event name is take, try other name.
+    </small>
+  </md-input-container>
+   <table class="table-location" cellspacing="0">
+     <tr><td>Start Location</td></tr>
+     <tr>
+      <td><md-input-container class="example-full-width">
+        <input mdInput placeholder="City" name="eventStartCity" formControlName="eventStartCity">
+      </md-input-container></td>
+      <td><md-input-container class="example-full-width">
+        <input mdInput placeholder="State" name="eventStartState" formControlName="eventStartState">
+      </md-input-container></td>
+      <td><md-input-container class="example-full-width">
+        <input type="number" mdInput #eventStartPostCode maxlength="5" placeholder="Postal Code" name="eventStartPostCode" formControlName="eventStartPostCode">
+      </md-input-container></td>
+    </tr></table>
+
+    <table class="table-location" cellspacing="0">
+      <tr><td>End Location</td></tr>
+      <tr>
+        <td><md-input-container class="example-full-width">
+          <input mdInput placeholder="City" name="eventEndCity" formControlName="eventEndCity">
+        </md-input-container></td>
+        <td><md-input-container class="example-full-width">
+          <input mdInput placeholder="State" name="eventEndState" formControlName="eventEndState">
+        </md-input-container></td>
+        <td><md-input-container class="example-full-width">
+          <input type="number" mdInput #eventEndPostCode maxlength="5" placeholder="Postal Code" name="eventEndPostCode" formControlName="eventEndPostCode">
+        </md-input-container></td>
+      </tr></table>
+
+    <md-input-container class="table-location">
+      <input id="dateTime" type="datetime-local" mdInput placeholder="Start Date Time" name="eventStartDateTime" formControlName="eventStartDateTime">
+    </md-input-container>
+    <br>
+    <button type="submit" md-raised-button color="accent">Create Event</button>
+  </form>
+</md-card>
