@@ -9,10 +9,12 @@ import {EventService} from './services/event.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { EventdetailsComponent } from './eventdetails/eventdetails.component';
 @NgModule({
   declarations: [
     AppComponent,
-    EventComponent
+    EventComponent,
+    EventdetailsComponent
   ],
   imports: [
     BrowserModule,

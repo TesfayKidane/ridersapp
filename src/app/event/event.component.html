@@ -4,7 +4,7 @@
   <md-input-container>
     <input mdInput placeholder="Event Name" type="text" id="eventName" name="eventName" #eventName formControlName="eventName" value="Winter Cycling">
     <small class="invalid" [hidden]="eventForm.controls['eventName'].valid || (eventForm.controls['eventName'].pristine && !submitted)">
-      Event name is take, try other name.
+     Required field
     </small>
   </md-input-container>
    <table class="table-location" cellspacing="0">
@@ -12,12 +12,21 @@
      <tr>
       <td><md-input-container class="example-full-width">
         <input mdInput placeholder="City" name="eventStartCity" formControlName="eventStartCity">
+        <small class="invalid" [hidden]="eventForm.controls['eventStartCity'].valid || (eventForm.controls['eventStartCity'].pristine && !submitted)">
+          Required field
+        </small>
       </md-input-container></td>
       <td><md-input-container class="example-full-width">
         <input mdInput placeholder="State" name="eventStartState" formControlName="eventStartState">
+        <small class="invalid" [hidden]="eventForm.controls['eventStartState'].valid || (eventForm.controls['eventStartState'].pristine && !submitted)">
+          Required field
+        </small>
       </md-input-container></td>
       <td><md-input-container class="example-full-width">
         <input type="number" mdInput #eventStartPostCode maxlength="5" placeholder="Postal Code" name="eventStartPostCode" formControlName="eventStartPostCode">
+        <small class="invalid" [hidden]="eventForm.controls['eventStartPostCode'].valid || (eventForm.controls['eventStartPostCode'].pristine && !submitted)">
+          Required field
+        </small>
       </md-input-container></td>
     </tr></table>
 
@@ -26,19 +35,31 @@
       <tr>
         <td><md-input-container class="example-full-width">
           <input mdInput placeholder="City" name="eventEndCity" formControlName="eventEndCity">
+          <small class="invalid" [hidden]="eventForm.controls['eventEndCity'].valid || (eventForm.controls['eventEndCity'].pristine && !submitted)">
+            Required field
+          </small>
         </md-input-container></td>
         <td><md-input-container class="example-full-width">
           <input mdInput placeholder="State" name="eventEndState" formControlName="eventEndState">
+          <small class="invalid" [hidden]="eventForm.controls['eventEndState'].valid || (eventForm.controls['eventEndState'].pristine && !submitted)">
+            Required field
+          </small>
         </md-input-container></td>
         <td><md-input-container class="example-full-width">
           <input type="number" mdInput #eventEndPostCode maxlength="5" placeholder="Postal Code" name="eventEndPostCode" formControlName="eventEndPostCode">
+          <small class="invalid" [hidden]="eventForm.controls['eventEndPostCode'].valid || (eventForm.controls['eventEndPostCode'].pristine && !submitted)">
+            Required field
+          </small>
         </md-input-container></td>
       </tr></table>
 
     <md-input-container class="table-location">
       <input id="dateTime" type="datetime-local" mdInput placeholder="Start Date Time" name="eventStartDateTime" formControlName="eventStartDateTime">
+      <small class="invalid" [hidden]="eventForm.controls['eventStartDateTime'].valid || (eventForm.controls['eventStartDateTime'].pristine && !submitted)">
+        Required field
+      </small>
     </md-input-container>
     <br>
-    <button type="submit" md-raised-button color="accent">Create Event</button>
+    <button type="submit" [disabled]="!eventForm.valid" md-raised-button color="accent">Create Event</button>
   </form>
 </md-card>

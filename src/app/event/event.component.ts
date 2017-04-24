@@ -40,7 +40,6 @@ export class EventComponent implements OnInit {
     this.eventModel = this.eventForm.value;
     this.eventModel.eventOwnerId = 1;
     this.eventModel.eventStatus = 'started';
-    // console.log(this.eventModel);
     this.eventService.postEvent(this.eventModel)
       .subscribe(
       events => { console.log(events); },
