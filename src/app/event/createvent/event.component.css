@@ -9,3 +9,7 @@
 .invalid{
   color: red;
 }
+
+.text-area{
+  width: 100%;
+}

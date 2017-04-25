@@ -60,6 +60,10 @@
       </small>
     </md-input-container>
     <br>
+    <!--<input mdInput placeholder="Event Description" id="eventDesc" name="eventDesc" formControlName="eventDesc">-->
+    <label for="eventDesc">Event Description</label><br>
+    <textarea class="text-area" id="eventDesc" name="eventDesc" formControlName="eventDesc"></textarea>
+    <br>
     <button type="submit" [disabled]="!eventForm.valid" md-raised-button color="accent">Create Event</button>
   </form>
 </md-card>

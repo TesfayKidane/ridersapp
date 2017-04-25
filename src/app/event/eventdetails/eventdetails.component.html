@@ -10,8 +10,8 @@
     <tr>
       <td class="event-date">
         <md-card-title-group>
-          <md-card-title><span>APRIL</span></md-card-title>
-          <md-card-subtitle><strong>25</strong></md-card-subtitle>
+          <md-card-title><span>{{event.eventStartDateTime}}</span></md-card-title>
+          <md-card-subtitle><strong>{{event.eventStartDateTime}}</strong></md-card-subtitle>
         </md-card-title-group>
       </td>
       <td class="space">
@@ -19,11 +19,10 @@
       </td>
       <td class="event-title">
         <md-card-title-group>
-          <md-card-title>Tour De France</md-card-title>
-          <md-card-subtitle>Public : Hosted by <a>Event Owner</a></md-card-subtitle>
+          <md-card-title>{{event.eventName}}</md-card-title>
+          <md-card-subtitle>Public : Hosted by <a>{{event.eventOwnerId}}</a></md-card-subtitle>
         </md-card-title-group>
       </td>
-
     </tr>
   </table>
   </div>
@@ -34,13 +33,14 @@
   <hr>
   <div class="panel-group">
     <md-card-title-group>
-      <md-card-title>2 AM</md-card-title>
-      <md-card-subtitle>Event is started</md-card-subtitle>
+      <md-card-title>{{event.eventStartDateTime}}</md-card-title>
+      <md-card-subtitle>Event Status : <b> {{event.eventStatus}} </b></md-card-subtitle>
     </md-card-title-group>
   </div>
   <div class="panel-group">
     <md-card-title-group>
-      <md-card-title>Fairfield, Iowa</md-card-title>
+      <md-card-title>{{event.eventStartCity}}, {{event.eventStartState}} {{event.eventStartPostCode}}</md-card-title>
+      <md-card-title>{{event.eventEndCity}}, {{event.eventEndState}} {{event.eventEndPostCode}}</md-card-title>
       <md-card-subtitle>25 Km distance</md-card-subtitle>
     </md-card-title-group>
     <md-card-content>
@@ -48,7 +48,6 @@
       &zoom=17
       &key=AIzaSyAfMykjowoCVnljt7RfI2dNQs2StshJW_g">
       </iframe>
-
     </md-card-content>
   </div>
 </md-card>
@@ -61,7 +60,8 @@
 
 <md-card class="event-card">
   <md-card-content>
-    This event is organizes into motivate young bike riders, and help them find
-    people who are interested in cycling crose cities and socialize.
+    {{event.eventDesc}}
   </md-card-content>
 </md-card>
+
+<!--<p>{{event.eventName}}</p>-->
