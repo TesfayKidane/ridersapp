@@ -1,0 +1,38 @@
+<md-card class="club-card">
+  <md-card-title>Clubs list</md-card-title>
+  <div class="form-group has-success has-feedback">
+    <div class="input-group">
+      <span class="input-group-addon">Search:</span>
+      <input #search (keyup)="0" type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+    </div>
+    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Club Logo</th>
+      <th>Club Name</th>
+      <th>Members</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let club of (clubs | clubPipe: search.value)">
+      <td><a [routerLink]="['/club', club._id]"><img class="clubLogo" src="{{club.clubImage}}"/></a></td>
+      <td><a [routerLink]="['/club', club._id]">{{club.clubName}}</a></td>
+      <td>{{111}}</td>
+      <td> {{club.clubCity}} </td>
+      <td> {{club.clubState}} </td>
+      <td> {{club.clubPostCode}} </td>
+      <td><button type="button" md-raised-button color="accent">Join</button> </td>
+    </tr>
+    </tbody>
+    <md-divider></md-divider>
+
+  </table>
+</md-card>

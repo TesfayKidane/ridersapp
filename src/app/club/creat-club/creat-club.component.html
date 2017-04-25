@@ -1,3 +1,39 @@
-<p>
-  creat-club works!
-</p>
+<md-card class="event-card">
+  <md-card-title>Create Club</md-card-title>
+
+  <form [formGroup] = "clubForm" (ngSubmit) = "onSubmit()">
+    <md-input-container>
+      <input mdInput placeholder="Club Name" type="text" id="clubName" name="clubName" #clubName formControlName="clubName">
+      <small class="invalid" [hidden]="clubForm.controls['clubName'].valid || (clubForm.controls['clubName'].pristine && !submitted)">
+        Club name is take, try other name.
+      </small>
+    </md-input-container>
+    <table class="table-location" cellspacing="0">
+      <tr><td>Club Location</td></tr>
+      <tr>
+        <td><md-input-container class="example-full-width">
+          <input mdInput placeholder="City" type="text" formControlName="clubCity">
+        </md-input-container></td>
+        <td>
+          <md-input-container class="example-full-width">
+          <input mdInput placeholder="State" [mdAutocomplete]="auto" formControlName="clubState" autocomplete="off">
+          </md-input-container>
+
+          <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let state of filteredStates | async" [value]="state">
+              {{ state }}
+            </md-option>
+          </md-autocomplete>
+        </td>
+        <td><md-input-container class="example-full-width">
+          <input type="number" mdInput #clubPostCode maxlength="5" placeholder="Postal Code" formControlName="clubPostCode">
+        </md-input-container></td>
+      </tr></table>
+
+    <md-input-container class="table-location">
+      <input mdInput placeholder="Club Image" type="text" id="clubImage" name="clubImage" #clubImage formControlName="clubImage" value="">
+    </md-input-container>
+    <br>
+    <button type="submit" md-raised-button color="accent" [disabled]="!clubForm.valid">Create Club</button>
+  </form>
+</md-card>

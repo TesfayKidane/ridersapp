@@ -11,9 +11,11 @@ import {MaterialModule } from '@angular/material';
 import 'hammerjs';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ClubComponent } from './club/club.component';
+import { ClubComponent } from './club/clubs/club.component';
 import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
+import {ClubService} from './services/club.service';
+import { ClubPipe } from './pipe/club.pipe';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ClubComponent,
     CreatClubComponent,
-    DetailClubComponent
+    DetailClubComponent,
+    ClubPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -42,7 +45,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
   ],
-  providers: [EventService],
+  providers: [EventService, ClubService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
