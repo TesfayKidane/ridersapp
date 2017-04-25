@@ -13,5 +13,8 @@ export class EventModel {
   public eventEndPostCode: number,
   public eventStartDateTime: Date,
   public eventOwnerId: number,
-  public eventStatus: string) {}
+  public eventStatus: string,
+  public eventUsers: [any],
+  public eventDesc: string
+  ) {}
 }

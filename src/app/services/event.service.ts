@@ -12,12 +12,19 @@ export class EventService {
   private ridersapiUrl = 'http://127.0.0.1:9000/';
   constructor(public http: Http) { }
 
+  getEventById(id: string): Observable<Object> {
+    const  url = this.ridersapiUrl + 'events/' + id;
+    return this.http.get(url)
+                .map((res: Response) => {
+                 return res.json();
+    })
+    .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+  }
+
   postEvent(body: Object): Observable<EventModel[]> {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
-
-    console.log('Posted object:' + bodyString);
     return this.http.post(this.ridersapiUrl + 'events/addevent/', bodyString, options)
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
@@ -26,10 +33,10 @@ export class EventService {
   getEvents(): Observable<Object> {
     return this.http.get(this.ridersapiUrl + 'events/')
                     .map((res: Response) => {
-                        console.log('Retrived from ridersapi' + res.json());
                         return res.json();
                       })
                     .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
 
   }
+
 }
