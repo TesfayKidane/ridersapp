@@ -1,0 +1,67 @@
+<md-card class="event-card">
+  <div class="panel-group">
+  <md-card-title-group>
+    <img width="100%" height="300px" md-card-lg-image
+         src="https://static01.nyt.com/images/2009/07/07/nyregion/bikerace-480.jpg"/>
+  </md-card-title-group>
+  </div>
+  <div class="panel-group">
+  <table>
+    <tr>
+      <td class="event-date">
+        <md-card-title-group>
+          <md-card-title><span>{{event.eventStartDateTime}}</span></md-card-title>
+          <md-card-subtitle><strong>{{event.eventStartDateTime}}</strong></md-card-subtitle>
+        </md-card-title-group>
+      </td>
+      <td class="space">
+          <md-divider></md-divider>
+      </td>
+      <td class="event-title">
+        <md-card-title-group>
+          <md-card-title>{{event.eventName}}</md-card-title>
+          <md-card-subtitle>Public : Hosted by <a>{{event.eventOwnerId}}</a></md-card-subtitle>
+        </md-card-title-group>
+      </td>
+    </tr>
+  </table>
+  </div>
+  <div class="button-row">
+    <button md-raised-button >Join</button>
+    <button md-raised-button >Edit</button>
+ </div>
+  <hr>
+  <div class="panel-group">
+    <md-card-title-group>
+      <md-card-title>{{event.eventStartDateTime}}</md-card-title>
+      <md-card-subtitle>Event Status : <b> {{event.eventStatus}} </b></md-card-subtitle>
+    </md-card-title-group>
+  </div>
+  <div class="panel-group">
+    <md-card-title-group>
+      <md-card-title>{{event.eventStartCity}}, {{event.eventStartState}} {{event.eventStartPostCode}}</md-card-title>
+      <md-card-title>{{event.eventEndCity}}, {{event.eventEndState}} {{event.eventEndPostCode}}</md-card-title>
+      <md-card-subtitle>25 Km distance</md-card-subtitle>
+    </md-card-title-group>
+    <md-card-content>
+      <iframe width="100%" height="90%" src="//www.google.com/maps/embed/v1/place?q=Harrods,Brompton%20Rd,%20UK
+      &zoom=17
+      &key=AIzaSyAfMykjowoCVnljt7RfI2dNQs2StshJW_g">
+      </iframe>
+    </md-card-content>
+  </div>
+</md-card>
+<md-card class="event-card" >
+  <md-card-title-group>
+  <md-card-title>20 People are participating</md-card-title>
+  <md-card-subtitle>Please spread the word!</md-card-subtitle>
+  </md-card-title-group>
+</md-card>
+
+<md-card class="event-card">
+  <md-card-content>
+    {{event.eventDesc}}
+  </md-card-content>
+</md-card>
+
+<!--<p>{{event.eventName}}</p>-->
