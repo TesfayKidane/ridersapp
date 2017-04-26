@@ -11,7 +11,7 @@ import {SharedService} from "./SharedService";
 
 @Injectable()
 export class ClubService {
-  private ridersapiUrl = 'http://127.0.0.1:9000/';
+  private ridersapiUrl = SharedService.API_URL;
   options;
   constructor(public http: Http) {
     let token = localStorage.getItem('id_token');
@@ -24,7 +24,6 @@ export class ClubService {
 
   postClub(body: Object): Observable<ClubModel[]> {
     const bodyString = JSON.stringify(body);
-    console.log('Posted object:' + bodyString);
     return this.http.post(this.ridersapiUrl + 'clubs/addclub/', bodyString, SharedService.API_REQUEST_OPTIONS())
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
@@ -32,6 +31,9 @@ export class ClubService {
 
   getClubs() {
     return this.http.get(this.ridersapiUrl + 'clubs/', SharedService.API_REQUEST_OPTIONS());
+  }
+  getNearbyClubs(lat, lng) {
+    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng);
   }
 
   getClubById( club_id ) {

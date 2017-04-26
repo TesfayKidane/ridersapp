@@ -1,3 +1,28 @@
-<p *ngIf="auth.authenticated()">
-  Welcome, you are logged in
-</p>
+<div class="row" *ngIf="auth.authenticated()">
+  <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
+  <button class="btn btn-success" style="float: right; margin-right: 10px">Create new Club</button>
+</div>
+<div class="row">
+  <sebm-google-map [latitude]="lat" [longitude]="lng"
+                   [zoom]="zoom"
+                   (mapClick)="mapClicked($event)">
+
+    <sebm-google-map-marker
+      *ngFor="let m of markers; let i = index"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      (markerClick)="clickedMarker(m.label, i)"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)"
+    ></sebm-google-map-marker>
+    <sebm-google-map-circle *ngIf="showCircle"
+                            [latitude]="lat"
+                            [longitude]="lng"
+                            [radius]="5000"
+                            [fillColor]="'red'"
+                            [circleDraggable]="true"
+                            [editable]="true">
+    </sebm-google-map-circle>
+  </sebm-google-map>
+</div>
