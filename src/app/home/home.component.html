@@ -1,6 +1,6 @@
 <div class="row" *ngIf="auth.authenticated()">
   <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
-  <button class="btn btn-success" style="float: right; margin-right: 10px">Create new Club</button>
+  <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
 </div>
 <div class="row">
   <sebm-google-map [latitude]="lat" [longitude]="lng"
@@ -15,7 +15,18 @@
       (markerClick)="clickedMarker(m.label, i)"
       [markerDraggable]="m.draggable"
       (dragEnd)="markerDragEnd(m, $event)"
-    ></sebm-google-map-marker>
+    >
+      <sebm-google-map-info-window [disableAutoPan]="true">
+        <div style="text-align: center"><strong>{{m.clubName}}</strong></div>
+        <div>
+          City: {{m.clubCity}}
+        </div>
+        <div>
+          Description: {{m.clubDescription}}
+        </div>
+      </sebm-google-map-info-window>
+<!--https://plnkr.co/edit/zyzs6LtVpQKeiz9JryJ9?p=preview-->
+    </sebm-google-map-marker>
     <sebm-google-map-circle *ngIf="showCircle"
                             [latitude]="lat"
                             [longitude]="lng"

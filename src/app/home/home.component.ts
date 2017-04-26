@@ -27,23 +27,24 @@ export class HomeComponent implements OnInit {
     }
   }
   showClubs() {
-    if(this.btnText === 'Select Clubs') {
+    this.mapdb.getNearbyClubs(this.lat, this.lng).subscribe(s => {
+      const json = s.json();
+      for (const key in json) {
+        this.markers.push({
+          lat: json[key].loc.coordinates[1],
+          lng: json[key].loc.coordinates[0],
+          label: json[key].loc.clubName,
+          draggable: false
+        });
+      }
+    });
+    /*if(this.btnText === 'Select Clubs') {
       this.btnText = 'Show Clubs';
       this.showCircle = true;
-      this.mapdb.getNearbyClubs(this.lat, this.lng).subscribe(s => {
-        const json = s.json();
-        for (const key in json) {
-          this.markers.push({
-            lat: json[key].coords.lat,
-            lng: json[key].coords.lng,
-            draggable: true
-          });
-        }
-      });
     }else {
       this.btnText = 'Select Clubs';
       this.showCircle = false;
-    }
+    }*/
   }
   setPosition(position) {
     this.location = position.coords;
@@ -66,6 +67,9 @@ export class HomeComponent implements OnInit {
 interface Marker {
   lat: number;
   lng: number;
-  label?: string;
   draggable: boolean;
+  label?: string;
+  clubName?: string;
+  clubCity?: string;
+  clubDescription?: string;
 }

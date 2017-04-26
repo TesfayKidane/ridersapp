@@ -32,7 +32,7 @@ export class ClubService {
     return this.http.get(this.ridersapiUrl + 'clubs/', SharedService.API_REQUEST_OPTIONS());
   }
   getNearbyClubs(lat, lng) {
-    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng, SharedService.API_REQUEST_OPTIONS());
+    return this.http.get(SharedService.API_URL + 'clubs/getnearby?lat=' + lat + '&lng=' + lng, SharedService.API_REQUEST_OPTIONS());
   }
 
   getClubById( club_id ) {
