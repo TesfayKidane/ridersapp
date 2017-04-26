@@ -12,4 +12,11 @@ export class UserService {
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
   }
+
+  getLoggedInUser() {
+    const profile = JSON.parse(localStorage.getItem('profile'));
+    profile._id = profile.email;
+    profile.token = localStorage.getItem('id_token');
+    return profile;
+  }
 }

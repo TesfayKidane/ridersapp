@@ -5,6 +5,7 @@ import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {Router} from "@angular/router";
 import {Auth} from "../../services/auth.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-event',
@@ -16,7 +17,9 @@ export class EventComponent implements OnInit {
   eventForm: FormGroup;
   eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';
   private eventModel = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '');
-  constructor(public fb: FormBuilder, public eventService: EventService, public router: Router, public auth: Auth) {
+  profile;
+  constructor(public fb: FormBuilder, public eventService: EventService, public userService: UserService, public router: Router, public auth: Auth) {
+    this.profile = this.userService.getLoggedInUser();
     this.eventForm = fb.group({
       'eventName' : ['', [Validators.required, Validators.minLength(1)]],
       'eventStartCity' : ['', [Validators.required, Validators.minLength(1)]],
@@ -33,11 +36,11 @@ export class EventComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.eventModel = this.eventForm.value;
-    this.eventModel.eventOwnerId = 1;
+    this.eventModel.eventOwnerId = this.profile._id;
     this.eventModel.eventStatus = 'started';
     this.eventService.postEvent(this.eventModel)
       .subscribe(
-        event => { this.router.navigate(['/event/' + event['0']._id]);},
+        event => { this.router.navigate(['/events/' + event['0']._id]);},
       err => {console.log(err); }
     );
   }
