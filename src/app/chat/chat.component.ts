@@ -1,6 +1,7 @@
 import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import * as io from 'socket.io-client';
+import {Auth} from '../services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -17,7 +18,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   msgData = { room: '', nickname: '', message: '' };
   socket = io('http://localhost:9000');
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService, public auth: Auth) {}
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user'));

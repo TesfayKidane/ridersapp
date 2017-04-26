@@ -16,11 +16,10 @@ import { ChatComponent } from './chat/chat.component';
 
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ClubComponent } from './club/clubs/club.component'
+import { ClubComponent } from './club/clubs/club.component';
 import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
 import {Auth} from './services/auth.service';
-// import {AUTH_PROVIDERS} from 'angular2-jwt';
 import { ProfileComponent } from './profile/profile.component';
 import {UserService} from './services/user.service';
 import {ClubService} from './services/club.service';
