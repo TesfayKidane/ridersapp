@@ -1,4 +1,8 @@
 <md-card class="club-card">
+  <div style="float: right">
+    <a [routerLink]="['/event/new', club._id]" md-raised-button color="accent">Create event</a>
+    <a [routerLink]="['/announcement/new', club._id]" md-raised-button color="accent">Create announcement</a>
+  </div>
   <md-card-title>{{club.clubName}}</md-card-title>
   <img src="{{club.clubImage}}"/>
   <p>{{club.clubDescription}}</p>

@@ -16,6 +16,8 @@ export class EventModel {
   public eventStatus: string,
   public eventUsers: [any],
   public eventDesc: string,
-  public clubId: string
+  public clubId: string,
+  public eventStartLoc: any,
+  public eventEndLoc: any
   ) {}
 }

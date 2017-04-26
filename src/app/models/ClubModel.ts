@@ -9,6 +9,7 @@ export class ClubModel {
   public clubOwnerId: number,
   public eventIds: any,
   public userIds: any,
-  public announceIds: any
+  public announceIds: any,
+  public loc: any
   ) {}
 }

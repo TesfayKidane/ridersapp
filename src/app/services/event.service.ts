@@ -17,16 +17,12 @@ export class EventService {
     this.token = this.token === null ? null : this.token.toString();
   }
 
-  getEventById(id: string): Observable<Object> {
-    const  url = this.ridersapiUrl + 'events/' + id;
+  getEventById(id: string){
+    const  url = this.ridersapiUrl + 'events/byId/' + id;
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization' , this.token.toString());
     const options = new RequestOptions({headers: headers});
-    return this.http.get(url, options)
-                .map((res: Response) => {
-                 return res.json();
-    })
-    .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+    return this.http.get(url, options);
   }
 
   postEvent(body: Object): Observable<EventModel[]> {

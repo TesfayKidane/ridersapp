@@ -11,7 +11,7 @@ import {AnnouncementService} from "../../services/announcement.service";
 })
 export class DetailClubComponent implements OnInit {
   public id;
-  public club = new ClubModel('', '', '', 0, '', 0, [], [], []);
+  public club = new ClubModel('', '', '', 0, '', 0, [], [], [], '');
   public announcements;
   constructor(private route: ActivatedRoute,
               private clubService: ClubService,

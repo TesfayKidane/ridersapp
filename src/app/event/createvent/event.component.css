@@ -3,7 +3,7 @@
 }
 
 .event-card{
-  width:50%;
+
 }
 
 .invalid{
@@ -12,4 +12,9 @@
 
 .text-area{
   width: 100%;
+}
+
+.sebm-google-map-container {
+  height: 500px;
+  width: 500px;
 }

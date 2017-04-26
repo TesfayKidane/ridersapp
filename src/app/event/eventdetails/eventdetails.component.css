@@ -17,3 +17,8 @@
 .space{
   width: 20px;
 }
+
+.sebm-google-map-container {
+  height: 500px;
+  width: 500px;
+}

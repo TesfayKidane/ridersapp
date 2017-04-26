@@ -10,23 +10,57 @@ import {Auth} from "../../services/auth.service";
   styleUrls: ['./eventdetails.component.css']
 })
 export class EventdetailsComponent implements OnInit {
+  // initial center position for the map
+  zoom: number = 10;
+
+  lng: number = -91.970417;
+  lat: number = 41.018210;
+
+  lng2: number = -91.970417;
+  lat2: number = 40.918210;
+
+  location = {};
+  markers: Marker[] = [];
+
   id;
-  private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '');
+  public myEvent  = {eventStartLoc: {coordinates: []}, eventEndLoc: {coordinates: []}};
+  private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '', [], []);
   place = '';
   constructor(public route: ActivatedRoute, public eventService: EventService) {
-  }
-  ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.eventService.getEventById(this.id).subscribe(
         (data) => {
-          this.copyObjectToModel(data);
+          this.myEvent = data.json();
+          console.log(data.json());
+          console.log('salom');
+          this.copyObjectToModel(data.json());
+          this.lng = this.myEvent.eventStartLoc.coordinates[0];
+          this.lat = this.myEvent.eventStartLoc.coordinates[1];
+          this.lng2 = this.myEvent.eventEndLoc.coordinates[0];
+          this.lat2 = this.myEvent.eventEndLoc.coordinates[1];
+
+          this.markers.push({
+            lat: this.lat,
+            lng: this.lng,
+            draggable: false,
+            iconUrl: 'https://www.westarenergy.com/Portals/0/favicon.ico'
+          });
+
+          this.markers.push({
+            lat: this.lat2,
+            lng: this.lng2,
+            draggable: false,
+            iconUrl: 'https://cdn1.iconfinder.com/data/icons/Momentum_GlossyEntireSet/32/checkered-flag.png'
+          });
         },
         (err) => {
           console.log(err);
         }
       );
     });
+  }
+  ngOnInit() {
   }
 
   private copyObjectToModel(data: Object) {
@@ -42,7 +76,12 @@ export class EventdetailsComponent implements OnInit {
     this.event.eventEndPostCode = data['eventEndPostCode'];
     this.event.eventStartDateTime = data['eventStartDateTime'];
     this.event.eventUsers = data['eventUsers'];
-    this.place = `//www.google.com/maps/embed/v1/place?q=` + this.event.eventStartCity + `,` + this.event.eventStartState + `%20` + this.event.eventStartPostCode + `,%20USA
-      &zoom=17&key=AIzaSyAfMykjowoCVnljt7RfI2dNQs2StshJW_g`;
   }
+}
+interface Marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
+  iconUrl: string;
 }
