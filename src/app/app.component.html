@@ -1,16 +1,22 @@
 <md-sidenav-container>
   <md-sidenav #sidenav mode="side" class="app-sidenav">
-    Sidenav
+    <app-profile *ngIf="auth.authenticated()" ></app-profile>
   </md-sidenav>
   <md-toolbar color="accent" class="mat-accent">
-    <button class="app-icon-button" (click)="sidenav.toggle()">
+    <button *ngIf="auth.authenticated()" class="app-icon-button" (click)="sidenav.toggle()">
       <i class="material-icons app-toolbar-menu">menu</i>
     </button>
     Bike Riders Meetup Platform
     <span class="app-toolbar-filler"></span>
-    <button md-raised-button color="primary">Chat Something</button>
+    <button md-raised-button color="primary" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
+    <button md-raised-button color="primary" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
+    <button md-raised-button color="primary" *ngIf="auth.authenticated()">Chat</button>
   </md-toolbar>
   <div class="app-content">
+    <md-card-header>
+      <h3 *ngIf="auth.authenticated()">Welcome</h3>
+      <h3 *ngIf="!auth.authenticated()">You are logged out</h3>
+    </md-card-header>
     <router-outlet></router-outlet>
   </div>
 </md-sidenav-container>
