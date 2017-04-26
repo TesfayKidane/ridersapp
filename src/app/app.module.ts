@@ -23,6 +23,11 @@ import {Auth} from './services/auth.service';
 // import {AUTH_PROVIDERS} from 'angular2-jwt';
 import { ProfileComponent } from './profile/profile.component';
 import {UserService} from './services/user.service';
+import {ClubService} from './services/club.service';
+import { ClubPipe } from './pipe/club.pipe';
+import {WebChatComponent} from './web-chat/web-chat.component';
+import {SharedService} from './services/SharedService';
+import {SearchUserPipe} from './services/searchUserPipe';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
@@ -30,6 +35,8 @@ const appRoutes: Routes = [
   { path: 'event/new', component: EventComponent },
   { path: 'events/:id', component: EventdetailsComponent },
   { path: 'club', component: ClubComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'webchat', component: WebChatComponent },
   { path: 'club/new', component: CreatClubComponent },
   { path: 'club/:id', component: DetailClubComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full'}
@@ -45,8 +52,10 @@ const appRoutes: Routes = [
     HomeComponent,
     ClubComponent,
     CreatClubComponent,
+    ClubPipe,
     DetailClubComponent,
-    ProfileComponent
+    WebChatComponent,
+    SearchUserPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -57,7 +66,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
   ],
-  providers: [EventService, ChatService, Auth, UserService],  // , AUTH_PROVIDERS, UserService],
+  providers: [EventService, ChatService, Auth, UserService, ClubService, SharedService, SearchUserPipe],  // , AUTH_PROVIDERS, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Auth} from "../services/auth.service";
 
 @Component({
   selector: 'app-club',
