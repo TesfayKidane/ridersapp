@@ -6,8 +6,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ClubModel } from '../models/ClubModel';
-import {Auth} from './auth.service';
-import {SharedService} from "./SharedService";
+import {SharedService} from './SharedService';
 
 @Injectable()
 export class ClubService {
@@ -33,7 +32,7 @@ export class ClubService {
     return this.http.get(this.ridersapiUrl + 'clubs/', SharedService.API_REQUEST_OPTIONS());
   }
   getNearbyClubs(lat, lng) {
-    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng);
+    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng, SharedService.API_REQUEST_OPTIONS());
   }
 
   getClubById( club_id ) {
