@@ -3,6 +3,7 @@
  */
 import { Component, OnInit, Input } from '@angular/core';
 import {EventService} from '../../services/event.service';
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-events',
@@ -11,7 +12,7 @@ import {EventService} from '../../services/event.service';
 })
 export class EventsComponent implements OnInit {
   @Input() events;
-  constructor(public eventService: EventService) { }
+  constructor(public eventService: EventService, public auth: Auth) { }
 
   ngOnInit() {
     this.eventService.getEvents().subscribe(

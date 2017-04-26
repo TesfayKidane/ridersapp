@@ -2,7 +2,7 @@ import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
-import {Auth} from "../../services/auth.service";
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-eventdetails',
@@ -12,8 +12,8 @@ import {Auth} from "../../services/auth.service";
 export class EventdetailsComponent implements OnInit {
   id;
   private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '');
-  place="";
-  constructor(public route: ActivatedRoute, public eventService: EventService) {
+  place= '';
+  constructor(public route: ActivatedRoute, public eventService: EventService, public auth: Auth) {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {

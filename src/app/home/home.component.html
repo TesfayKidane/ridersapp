@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="auth.authenticated()">
   <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
   <button class="btn btn-success" style="float: right; margin-right: 10px">Create new Club</button>
 </div>

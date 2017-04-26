@@ -1,5 +1,5 @@
+<div *ngIf="auth.authenticated()">
 <p *ngFor="let event of events">
-
 <md-card class="events-card">
   <md-card-header>
     <div md-card-avatar class="events-header-image"></div>
@@ -17,5 +17,5 @@
     <button md-button>SHARE</button>
   </md-card-actions>
 </md-card>
-
 </p>
+</div>

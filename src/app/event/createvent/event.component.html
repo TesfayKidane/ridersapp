@@ -1,4 +1,4 @@
-<md-card class="event-card">
+<md-card class="event-card" *ngIf="auth.authenticated()">
   <md-card-title>Create Event</md-card-title>
   <form [formGroup] = "eventForm" (ngSubmit) = "onSubmit()">
   <md-input-container>

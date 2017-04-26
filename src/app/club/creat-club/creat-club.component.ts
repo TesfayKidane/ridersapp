@@ -4,6 +4,7 @@ import { ClubService } from '../../services/club.service';
 import {ClubModel} from '../../models/ClubModel';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/startWith';
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-creat-club',
@@ -67,7 +68,7 @@ export class CreatClubComponent implements OnInit {
     'Wisconsin',
     'Wyoming',
   ];
-  constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router) {
+  constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router, public auth: Auth) {
     this.clubForm = this.fb.group({
       'clubName' : ['', [Validators.required, Validators.minLength(1)]],
       'clubCity' : ['', [Validators.required, Validators.minLength(1)]],

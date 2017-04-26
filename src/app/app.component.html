@@ -14,8 +14,6 @@
   </md-toolbar>
   <div class="app-content">
     <md-card-header>
-      <h3 *ngIf="auth.authenticated()">Welcome</h3>
-      <h3 *ngIf="!auth.authenticated()">You are logged out</h3>
     </md-card-header>
     <router-outlet></router-outlet>
   </div>

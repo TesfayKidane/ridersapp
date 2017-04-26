@@ -6,32 +6,36 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ClubModel } from '../models/ClubModel';
-import {SharedService} from "./SharedService";
+import {SharedService} from './SharedService';
 
 @Injectable()
 export class ClubService {
   private ridersapiUrl = SharedService.API_URL;
-  constructor(public http: Http) { }
+  options;
+  constructor(public http: Http) {
+    let token = localStorage.getItem('id_token');
+    token = token === null ? null : token.toString();
+
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization' , token);
+    this.options = new RequestOptions({headers: headers});
+  }
 
   postClub(body: Object): Observable<ClubModel[]> {
     const bodyString = JSON.stringify(body);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
-
-    console.log('Posted object:' + bodyString);
-    return this.http.post(this.ridersapiUrl + 'clubs/addclub/', bodyString, options)
+    return this.http.post(this.ridersapiUrl + 'clubs/addclub/', bodyString, SharedService.API_REQUEST_OPTIONS())
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
   }
 
   getClubs() {
-    return this.http.get(this.ridersapiUrl + 'clubs/');
+    return this.http.get(this.ridersapiUrl + 'clubs/', SharedService.API_REQUEST_OPTIONS());
   }
   getNearbyClubs(lat, lng) {
-    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng);
+    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng, SharedService.API_REQUEST_OPTIONS());
   }
 
   getClubById( club_id ) {
-    return this.http.get(this.ridersapiUrl + 'clubs/' + club_id );
+     return this.http.get(this.ridersapiUrl + 'clubs/' + club_id, SharedService.API_REQUEST_OPTIONS());
   }
 }
