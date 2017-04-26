@@ -10,7 +10,6 @@ import {UserService} from '../services/user.service';
 })
 export class ProfileComponent implements OnInit {
   profile;
-  // user;
   constructor(private router: Router, private auth: Auth, private userService: UserService) {
     this.profile = JSON.parse(localStorage.getItem('profile'));
     this.profile._id = this.profile.email;

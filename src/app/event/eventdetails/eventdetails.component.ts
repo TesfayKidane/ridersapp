@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {Auth} from '../../services/auth.service';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-eventdetails',
@@ -13,7 +14,9 @@ export class EventdetailsComponent implements OnInit {
   id;
   private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '');
   place= '';
-  constructor(public route: ActivatedRoute, public eventService: EventService, public auth: Auth) {
+  profile;
+  constructor(public route: ActivatedRoute, public userService: UserService, public eventService: EventService, public auth: Auth) {
+    this.profile = userService.getLoggedInUser();
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
