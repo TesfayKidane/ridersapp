@@ -21,15 +21,18 @@ import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
 import {ClubService} from './services/club.service';
 import { ClubPipe } from './pipe/club.pipe';
+import { CreateAnnouncementComponent } from './announcement/create-announcement/create-announcement.component';
+import {AnnouncementService} from './services/announcement.service';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
   { path: 'events', component: EventsComponent },
-  { path: 'event/new', component: EventComponent },
+  { path: 'event/new/:id', component: EventComponent },
   { path: 'events/:id', component: EventdetailsComponent },
   { path: 'club', component: ClubComponent },
   { path: 'club/new', component: CreatClubComponent },
   { path: 'club/:id', component: DetailClubComponent },
+  { path: 'announcement/new/:id', component: CreateAnnouncementComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full'}
 ];
 
@@ -44,7 +47,8 @@ const appRoutes: Routes = [
     ClubComponent,
     CreatClubComponent,
     DetailClubComponent,
-    ClubPipe
+    ClubPipe,
+    CreateAnnouncementComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -55,7 +59,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
   ],
-  providers: [EventService, ClubService, ChatService],
+  providers: [EventService, ClubService, ChatService, AnnouncementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,12 +11,12 @@ import {EventService} from '../../services/event.service';
 })
 export class EventsComponent implements OnInit {
   @Input() events;
+  @Input() clubId = null;
   constructor(public eventService: EventService) { }
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe(
+    this.eventService.getEvents(this.clubId).subscribe(
       (data) => {
-        console.log(data);
         this.events = data;
       },
       (err) => {

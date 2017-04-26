@@ -15,6 +15,7 @@ export class EventModel {
   public eventOwnerId: number,
   public eventStatus: string,
   public eventUsers: [any],
-  public eventDesc: string
+  public eventDesc: string,
+  public clubId: string
   ) {}
 }

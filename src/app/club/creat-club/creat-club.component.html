@@ -8,6 +8,13 @@
         Club name is take, try other name.
       </small>
     </md-input-container>
+    <br/>
+    <md-input-container>
+      <textarea class="migaTextArea" mdInput placeholder="Club Description" type="text" id="clubDescription" name="clubDescription" #clubDescription formControlName="clubDescription"></textarea>
+      <small class="invalid" [hidden]="clubForm.controls['clubDescription'].valid || (clubForm.controls['clubDescription'].pristine && !submitted)">
+        Please insert club description.
+      </small>
+    </md-input-container>
     <table class="table-location" cellspacing="0">
       <tr><td>Club Location</td></tr>
       <tr>

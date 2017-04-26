@@ -28,6 +28,13 @@ export class ClubService {
   }
 
   getClubById( club_id ) {
-    return this.http.get(this.ridersapiUrl + 'clubs/' + club_id );
+    return this.http.get(this.ridersapiUrl + 'clubs/' + club_id )
+      .map((res: Response) => {
+      return res.json();
+    }).catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+  }
+
+  pushAnnounceId( updateObject) {
+    this.http.post(this.ridersapiUrl + 'clubs/addAnnounce', updateObject );
   }
 }

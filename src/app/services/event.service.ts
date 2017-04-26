@@ -30,7 +30,14 @@ export class EventService {
       .catch((err: any) => Observable.throw('Error Posting to Server'));
   }
 
-  getEvents(): Observable<Object> {
+  getEvents(clubId): Observable<Object> {
+    if ( clubId ) {
+      return this.http.get(this.ridersapiUrl + 'events/byClub/' + clubId)
+        .map((res: Response) => {
+          return res.json();
+        })
+        .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+    }
     return this.http.get(this.ridersapiUrl + 'events/')
                     .map((res: Response) => {
                         return res.json();

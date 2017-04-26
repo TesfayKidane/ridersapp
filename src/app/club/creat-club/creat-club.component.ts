@@ -14,7 +14,7 @@ export class CreatClubComponent implements OnInit {
   submitted  = false;
   clubForm: FormGroup;
   filteredStates: any;
-  private clubModel = new ClubModel('', '', '', 0, '', 0);
+  private clubModel = new ClubModel('', '', '', 0, '', 0, [], [], []);
   states = [
     'Alabama',
     'Alaska',
@@ -70,6 +70,7 @@ export class CreatClubComponent implements OnInit {
   constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router) {
     this.clubForm = this.fb.group({
       'clubName' : ['', [Validators.required, Validators.minLength(1)]],
+      'clubDescription' : ['', [Validators.required, Validators.minLength(1)]],
       'clubCity' : ['', [Validators.required, Validators.minLength(1)]],
       'clubState' : ['', [Validators.required, Validators.minLength(1)]],
       'clubPostCode' : ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]],

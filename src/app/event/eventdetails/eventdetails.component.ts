@@ -10,8 +10,8 @@ import {EventModel} from '../../models/EventModel';
 })
 export class EventdetailsComponent implements OnInit {
   id;
-  private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '');
-  place="";
+  private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '');
+  place = '';
   constructor(public route: ActivatedRoute, public eventService: EventService) {
   }
   ngOnInit() {

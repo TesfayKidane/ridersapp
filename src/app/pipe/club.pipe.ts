@@ -13,6 +13,7 @@ export class ClubPipe implements PipeTransform {
         posts[key].clubName.toLowerCase().indexOf(searchValue) !== -1 ||
         posts[key].clubCity.toLowerCase().indexOf(searchValue) !== -1 ||
         posts[key].clubState.toLowerCase().indexOf(searchValue) !== -1 ||
+        (posts[key].userIds ? posts[key].userIds.length.toString().indexOf(searchValue) !== -1 : false) ||
         posts[key].clubPostCode.toString().toLowerCase().indexOf(searchValue) !== -1 ||
         value.length === 0 ) {
         newarr.push(posts[key]);
