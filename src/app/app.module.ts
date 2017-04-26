@@ -16,7 +16,7 @@ import { ChatComponent } from './chat/chat.component';
 
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ClubComponent } from './club/club.component';
+import { ClubComponent } from './club/clubs/club.component'
 import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
 import {Auth} from './services/auth.service';
@@ -55,7 +55,8 @@ const appRoutes: Routes = [
     ClubPipe,
     DetailClubComponent,
     WebChatComponent,
-    SearchUserPipe
+    SearchUserPipe,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
