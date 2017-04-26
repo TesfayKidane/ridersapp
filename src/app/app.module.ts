@@ -28,8 +28,7 @@ import { ClubPipe } from './pipe/club.pipe';
 import {WebChatComponent} from './web-chat/web-chat.component';
 import {SharedService} from './services/SharedService';
 import {SearchUserPipe} from './services/searchUserPipe';
-import {AgmCoreModule} from "angular2-google-maps/core";
-import {GoogleMapService} from "app/services/googlemap.service";
+import {AgmCoreModule} from 'angular2-google-maps/core';
 import { CreateAnnouncementComponent } from './announcement/create-announcement/create-announcement.component';
 import {AnnouncementService} from './services/announcement.service';
 
@@ -76,7 +75,8 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyAgRXJJQPFMO2ZZVfLea_AEsBIdYikiljw'
     })
   ],
-  providers: [EventService, ChatService, Auth, UserService, ClubService, SharedService, SearchUserPipe, AnnouncementService],  // , AUTH_PROVIDERS, UserService],
+  providers: [EventService, ChatService, Auth, UserService, ClubService,
+    SharedService, SearchUserPipe, AnnouncementService],  // , AUTH_PROVIDERS, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

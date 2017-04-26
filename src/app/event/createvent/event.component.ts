@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Auth} from "../../services/auth.service";
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-event',
@@ -15,7 +15,7 @@ export class EventComponent implements OnInit {
   private clubId;
   submitted  = false;
   eventForm: FormGroup;
-  eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';
+  eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';
   private eventModel = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '');
   constructor(private route: ActivatedRoute,
               public fb: FormBuilder,
