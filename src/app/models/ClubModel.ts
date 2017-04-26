@@ -6,5 +6,10 @@ export class ClubModel {
   public clubState: string,
   public clubPostCode: number,
   public clubImage: string,
-  public clubOwnerId: number) {}
+  public clubOwnerId: number,
+  public eventIds: any,
+  public userIds: any,
+  public announceIds: any,
+  public loc: any
+  ) {}
 }

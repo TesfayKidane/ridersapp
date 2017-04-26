@@ -1,4 +1,19 @@
 <md-card class="event-card" *ngIf="auth.authenticated()">
+  <div style="float: right">
+    <sebm-google-map [latitude]="lat" [longitude]="lng"
+                     [zoom]="zoom">
+
+      <sebm-google-map-marker
+        *ngFor="let m of markers; let i = index"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        (markerClick)="clickedMarker(m.label, i)"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event, i)"
+      ></sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
   <md-card-title>Create Event</md-card-title>
   <form [formGroup] = "eventForm" (ngSubmit) = "onSubmit()">
   <md-input-container>
@@ -28,7 +43,17 @@
           Required field
         </small>
       </md-input-container></td>
-    </tr></table>
+    </tr>
+     <tr>
+       <td><md-input-container class="example-full-width">
+         <input mdInput #eventLng type="text" placeholder="Longitude" formControlName="eventLng" value="{{lng}}">
+       </md-input-container></td>
+       <td><md-input-container class="example-full-width">
+         <input mdInput #eventLat placeholder="Latitude" type="text" formControlName="eventLat" value="{{lat}}">
+       </md-input-container></td>
+
+     </tr>
+   </table>
 
     <table class="table-location" cellspacing="0">
       <tr><td>End Location</td></tr>
@@ -51,7 +76,17 @@
             Required field
           </small>
         </md-input-container></td>
-      </tr></table>
+      </tr>
+      <tr>
+        <td><md-input-container class="example-full-width">
+          <input mdInput #eventEndLng type="text" placeholder="Longitude" formControlName="eventEndLng" value="{{lng2}}">
+        </md-input-container></td>
+        <td><md-input-container class="example-full-width">
+          <input mdInput #eventEndLat placeholder="Latitude" type="text" formControlName="eventEndLat" value="{{lat2}}">
+        </md-input-container></td>
+
+      </tr>
+    </table>
 
     <md-input-container class="table-location">
       <input id="dateTime" type="datetime-local" mdInput placeholder="Start Date Time" name="eventStartDateTime" formControlName="eventStartDateTime">

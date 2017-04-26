@@ -13,15 +13,15 @@ import {UserService} from "../../services/user.service";
 })
 export class EventsComponent implements OnInit {
   @Input() events;
+  @Input() clubId = null;
   @Input() profile;
   constructor(public eventService: EventService, public userService: UserService, public auth: Auth) {
     this.profile = userService.getLoggedInUser();
   }
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe(
+    this.eventService.getEvents(this.clubId).subscribe(
       (data) => {
-        console.log(data);
         this.events = data;
       },
       (err) => {

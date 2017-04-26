@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {GoogleMapService} from "../services/googlemap.service";
-import {ClubService} from "../services/club.service";
+import {GoogleMapService} from '../services/googlemap.service';
+import {ClubService} from '../services/club.service';
 import {Auth} from '../services/auth.service';
 
 @Component({

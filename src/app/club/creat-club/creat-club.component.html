@@ -1,4 +1,19 @@
 <md-card class="event-card" *ngIf="auth.authenticated()">
+  <div style="float: right">
+    <sebm-google-map [latitude]="lat" [longitude]="lng"
+                     [zoom]="zoom">
+
+      <sebm-google-map-marker
+        *ngFor="let m of markers; let i = index"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        (markerClick)="clickedMarker(m.label, i)"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)"
+      ></sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
   <md-card-title>Create Club</md-card-title>
 
   <form [formGroup] = "clubForm" (ngSubmit) = "onSubmit()">
@@ -6,6 +21,13 @@
       <input mdInput placeholder="Club Name" type="text" id="clubName" name="clubName" #clubName formControlName="clubName">
       <small class="invalid" [hidden]="clubForm.controls['clubName'].valid || (clubForm.controls['clubName'].pristine && !submitted)">
         Club name is take, try other name.
+      </small>
+    </md-input-container>
+    <br/>
+    <md-input-container>
+      <textarea class="migaTextArea" mdInput placeholder="Club Description" type="text" id="clubDescription" name="clubDescription" #clubDescription formControlName="clubDescription"></textarea>
+      <small class="invalid" [hidden]="clubForm.controls['clubDescription'].valid || (clubForm.controls['clubDescription'].pristine && !submitted)">
+        Please insert club description.
       </small>
     </md-input-container>
     <table class="table-location" cellspacing="0">
@@ -28,7 +50,18 @@
         <td><md-input-container class="example-full-width">
           <input type="number" mdInput #clubPostCode maxlength="5" placeholder="Postal Code" formControlName="clubPostCode">
         </md-input-container></td>
-      </tr></table>
+      </tr>
+      <tr><td>Location</td></tr>
+      <tr>
+        <td><md-input-container class="example-full-width">
+          <input mdInput #clubLat placeholder="Latitude" type="text" formControlName="clubLat" value="{{lat}}">
+        </md-input-container></td>
+        <td><md-input-container class="example-full-width">
+          <input mdInput #clubLng type="text" placeholder="Longitude" formControlName="clubLng" value="{{lng}}">
+        </md-input-container></td>
+      </tr>
+    </table>
+
 
     <md-input-container class="table-location">
       <input mdInput placeholder="Club Image" type="text" id="clubImage" name="clubImage" #clubImage formControlName="clubImage" value="">

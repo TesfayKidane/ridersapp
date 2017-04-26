@@ -1,4 +1,7 @@
 <md-card class="club-card" *ngIf="auth.authenticated()">
+  <div style="float: right">
+    <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
+  </div>
   <md-card-title>Clubs list</md-card-title>
   <div class="form-group has-success has-feedback">
     <div class="input-group">
@@ -12,6 +15,7 @@
   <table>
     <thead>
     <tr>
+      <th>#</th>
       <th>Club Logo</th>
       <th>Club Name</th>
       <th>Members</th>
@@ -22,10 +26,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let club of (clubs | clubPipe: search.value)">
+    <tr *ngFor="let club of (clubs | clubPipe: search.value); let i = index">
+      <td> {{i+1}} </td>
       <td><a [routerLink]="['/club', club._id]"><img class="clubLogo" src="{{club.clubImage}}"/></a></td>
       <td><a [routerLink]="['/club', club._id]">{{club.clubName}}</a></td>
-      <td>{{111}}</td>
+      <td>{{club.userIds ? club.userIds.length : 0}}</td>
       <td> {{club.clubCity}} </td>
       <td> {{club.clubState}} </td>
       <td> {{club.clubPostCode}} </td>

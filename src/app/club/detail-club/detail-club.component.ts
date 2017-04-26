@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ClubService} from '../../services/club.service';
+import {ClubModel} from '../../models/ClubModel';
+import {AnnouncementService} from '../../services/announcement.service';
 import {Auth} from '../../services/auth.service';
 
 @Component({
@@ -10,18 +12,24 @@ import {Auth} from '../../services/auth.service';
 })
 export class DetailClubComponent implements OnInit {
   public id;
-  public club;
-  constructor(private route: ActivatedRoute, private clubService: ClubService, public auth: Auth) {
-    route.params.subscribe(params => {
-      this.id = params['id'];
-      this.club = this.clubService.getClubById( this.id ).subscribe(
-        response => console.log(response)
-      );
-
-    });
+  public club = new ClubModel('', '', '', 0, '', 0, [], [], [], '');
+  public announcements;
+  constructor(private route: ActivatedRoute,
+              private clubService: ClubService,
+              private anService: AnnouncementService, public auth: Auth) {
   }
-
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.clubService.getClubById( this.id ).subscribe(
+        data => {
+          this.club = data; }
+      );
+      this.anService.getAnnouncement( this.id ).subscribe(
+        datas => {
+          this.announcements = datas;
+      });
+    });
   }
 
 }

@@ -1,3 +1,36 @@
-<p *ngIf="auth.authenticated()">
-  detail-club works!
-</p>
+<md-card class="club-card" *ngIf="auth.authenticated()">
+  <div style="float: right">
+    <a [routerLink]="['/event/new', club._id]" md-raised-button color="accent">Create event</a>
+    <a [routerLink]="['/announcement/new', club._id]" md-raised-button color="accent">Create announcement</a>
+  </div>
+  <md-card-title>{{club.clubName}}</md-card-title>
+  <img src="{{club.clubImage}}"/>
+  <p>{{club.clubDescription}}</p>
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Announcement</th>
+      <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let announcement of announcements; let i = index">
+      <td> {{i+1}} </td>
+      <td> {{announcement.content}} </td>
+      <td> {{announcement.createdAt | date: 'short'}} </td>
+    </tr>
+    </tbody>
+    <md-divider></md-divider>
+
+  </table>
+  <div>{{club.clubDescription}}</div>
+    <div>
+      Events
+      <app-events [clubId]="id"></app-events>
+    </div>
+    <div>Members
+
+    </div>
+
+</md-card>

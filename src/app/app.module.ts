@@ -27,19 +27,21 @@ import { ClubPipe } from './pipe/club.pipe';
 import {WebChatComponent} from './web-chat/web-chat.component';
 import {SharedService} from './services/SharedService';
 import {SearchUserPipe} from './services/searchUserPipe';
-import {AgmCoreModule} from "angular2-google-maps/core";
-import {GoogleMapService} from "app/services/googlemap.service";
+import {AgmCoreModule} from 'angular2-google-maps/core';
+import { CreateAnnouncementComponent } from './announcement/create-announcement/create-announcement.component';
+import {AnnouncementService} from './services/announcement.service';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
   { path: 'events', component: EventsComponent },
-  { path: 'event/new', component: EventComponent },
+  { path: 'event/new/:id', component: EventComponent },
   { path: 'events/:id', component: EventdetailsComponent },
   { path: 'club', component: ClubComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'webchat', component: WebChatComponent },
   { path: 'club/new', component: CreatClubComponent },
   { path: 'club/:id', component: DetailClubComponent },
+  { path: 'announcement/new/:id', component: CreateAnnouncementComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full'}
 ];
 
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     DetailClubComponent,
     WebChatComponent,
     SearchUserPipe,
-    ProfileComponent
+    ProfileComponent,
+    CreateAnnouncementComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -71,7 +74,8 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyAgRXJJQPFMO2ZZVfLea_AEsBIdYikiljw'
     })
   ],
-  providers: [EventService, ChatService, Auth, UserService, ClubService, SharedService, SearchUserPipe],  // , AUTH_PROVIDERS, UserService],
+  providers: [EventService, ChatService, Auth, UserService, ClubService,
+    SharedService, SearchUserPipe, AnnouncementService],  // , AUTH_PROVIDERS, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

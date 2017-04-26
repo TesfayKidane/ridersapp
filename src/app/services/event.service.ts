@@ -12,27 +12,28 @@ export class EventService {
   constructor(public http: Http) {
   }
 
-  getEventById(id: string): Observable<Object> {
-    return this.http.get(SharedService.API_EVENTS + id, SharedService.API_REQUEST_OPTIONS())
-                .map((res: Response) => {
-                 return res.json();
-    })
-    .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+  getEventById(id: string){
+    const  url = SharedService.API_URL + 'events/byId/' + id;
+    return this.http.get(url, SharedService.API_REQUEST_OPTIONS());
   }
 
   postEvent(body: Object): Observable<EventModel[]> {
-    // const bodyString = JSON.stringify(body);
     return this.http.post(SharedService.API_ADD_EVENT, body, SharedService.API_REQUEST_OPTIONS())
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
   }
-
-  getEvents(): Observable<Object> {
-    return this.http.get(SharedService.API_EVENTS, SharedService.API_REQUEST_OPTIONS())
+  getEvents(clubId): Observable<Object> {
+    if (clubId) {
+      return this.http.get(SharedService.API_URL + 'events/byClub/' + clubId, SharedService.API_REQUEST_OPTIONS)
+        .map((res: Response) => {
+          return res.json();
+        })
+        .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+    }
+    return this.http.get(SharedService.API_URL + 'events/', SharedService.API_REQUEST_OPTIONS)
                     .map((res: Response) => {
                         return res.json();
                       })
                     .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
-
   }
 }

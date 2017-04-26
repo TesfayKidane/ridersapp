@@ -13,12 +13,6 @@ export class ClubService {
   private ridersapiUrl = SharedService.API_URL;
   options;
   constructor(public http: Http) {
-    let token = localStorage.getItem('id_token');
-    token = token === null ? null : token.toString();
-
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization' , token);
-    this.options = new RequestOptions({headers: headers});
   }
 
   postClub(body: Object): Observable<ClubModel[]> {
@@ -36,6 +30,13 @@ export class ClubService {
   }
 
   getClubById( club_id ) {
-     return this.http.get(this.ridersapiUrl + 'clubs/' + club_id, SharedService.API_REQUEST_OPTIONS());
+     return this.http.get(this.ridersapiUrl + 'clubs/byId/' + club_id, SharedService.API_REQUEST_OPTIONS())
+      .map((res: Response) => {
+      return res.json();
+    }).catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+  }
+
+  pushAnnounceId( updateObject) {
+    this.http.post(this.ridersapiUrl + 'clubs/addAnnounce', updateObject );
   }
 }
