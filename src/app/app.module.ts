@@ -16,11 +16,20 @@ import { ChatComponent } from './chat/chat.component';
 
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ClubComponent } from './club/clubs/club.component';
+import { ClubComponent } from './club/clubs/club.component'
 import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
+import {Auth} from './services/auth.service';
+// import {AUTH_PROVIDERS} from 'angular2-jwt';
+import { ProfileComponent } from './profile/profile.component';
+import {UserService} from './services/user.service';
 import {ClubService} from './services/club.service';
 import { ClubPipe } from './pipe/club.pipe';
+import {WebChatComponent} from './web-chat/web-chat.component';
+import {SharedService} from './services/SharedService';
+import {SearchUserPipe} from './services/searchUserPipe';
+import {AgmCoreModule} from "angular2-google-maps/core";
+import {GoogleMapService} from "app/services/googlemap.service";
 import { CreateAnnouncementComponent } from './announcement/create-announcement/create-announcement.component';
 import {AnnouncementService} from './services/announcement.service';
 
@@ -30,6 +39,8 @@ const appRoutes: Routes = [
   { path: 'event/new/:id', component: EventComponent },
   { path: 'events/:id', component: EventdetailsComponent },
   { path: 'club', component: ClubComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'webchat', component: WebChatComponent },
   { path: 'club/new', component: CreatClubComponent },
   { path: 'club/:id', component: DetailClubComponent },
   { path: 'announcement/new/:id', component: CreateAnnouncementComponent },
@@ -46,8 +57,11 @@ const appRoutes: Routes = [
     HomeComponent,
     ClubComponent,
     CreatClubComponent,
-    DetailClubComponent,
     ClubPipe,
+    DetailClubComponent,
+    WebChatComponent,
+    SearchUserPipe,
+    ProfileComponent,
     CreateAnnouncementComponent
   ],
   imports: [
@@ -58,8 +72,11 @@ const appRoutes: Routes = [
     HttpModule,
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAgRXJJQPFMO2ZZVfLea_AEsBIdYikiljw'
+    })
   ],
-  providers: [EventService, ClubService, ChatService, AnnouncementService],
+  providers: [EventService, ChatService, Auth, UserService, ClubService, SharedService, SearchUserPipe, AnnouncementService],  // , AUTH_PROVIDERS, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

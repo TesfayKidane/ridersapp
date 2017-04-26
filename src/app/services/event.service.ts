@@ -6,15 +6,23 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {EventModel} from '../models/EventModel';
+import {Auth} from './auth.service';
 @Injectable()
 export class EventService {
-  eventsRes: Object; // Observable<Object>;
+  eventsRes: Object;
+  token = '';
   private ridersapiUrl = 'http://127.0.0.1:9000/';
-  constructor(public http: Http) { }
+  constructor(public http: Http, public auth: Auth) {
+    this.token = localStorage.getItem('id_token');
+    this.token = this.token === null ? null : this.token.toString();
+  }
 
   getEventById(id: string): Observable<Object> {
     const  url = this.ridersapiUrl + 'events/' + id;
-    return this.http.get(url)
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization' , this.token.toString());
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(url, options)
                 .map((res: Response) => {
                  return res.json();
     })
@@ -24,6 +32,7 @@ export class EventService {
   postEvent(body: Object): Observable<EventModel[]> {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization' , this.token);
     const options = new RequestOptions({headers: headers});
     return this.http.post(this.ridersapiUrl + 'events/addevent/', bodyString, options)
       .map((res: Response) => res.json())
@@ -31,14 +40,18 @@ export class EventService {
   }
 
   getEvents(clubId): Observable<Object> {
-    if ( clubId ) {
-      return this.http.get(this.ridersapiUrl + 'events/byClub/' + clubId)
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization' , this.token.toString());
+    const options = new RequestOptions({headers: headers});
+    // return this.http.get(this.ridersapiUrl + 'events/', options)
+    if (clubId) {
+      return this.http.get(this.ridersapiUrl + 'events/byClub/' + clubId, options)
         .map((res: Response) => {
           return res.json();
         })
         .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
     }
-    return this.http.get(this.ridersapiUrl + 'events/')
+    return this.http.get(this.ridersapiUrl + 'events/', options)
                     .map((res: Response) => {
                         return res.json();
                       })

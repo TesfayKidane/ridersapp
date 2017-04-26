@@ -6,10 +6,11 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ClubModel } from '../models/ClubModel';
+import {SharedService} from "./SharedService";
 
 @Injectable()
 export class ClubService {
-  private ridersapiUrl = 'http://127.0.0.1:9000/';
+  private ridersapiUrl = SharedService.API_URL;
   constructor(public http: Http) { }
 
   postClub(body: Object): Observable<ClubModel[]> {
@@ -25,6 +26,9 @@ export class ClubService {
 
   getClubs() {
     return this.http.get(this.ridersapiUrl + 'clubs/');
+  }
+  getNearbyClubs(lat, lng) {
+    return this.http.get(SharedService.API_URL + 'getnearrby?lat=' + lat + '&lng=' + lng);
   }
 
   getClubById( club_id ) {
