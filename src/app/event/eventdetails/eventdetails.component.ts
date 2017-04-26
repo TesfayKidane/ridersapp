@@ -2,6 +2,7 @@ import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
+import {Auth} from "../../services/auth.service";
 
 @Component({
   selector: 'app-eventdetails',

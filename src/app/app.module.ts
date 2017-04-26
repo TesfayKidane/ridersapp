@@ -19,6 +19,10 @@ import { HomeComponent } from './home/home.component';
 import { ClubComponent } from './club/club.component';
 import { CreatClubComponent } from './club/creat-club/creat-club.component';
 import { DetailClubComponent } from './club/detail-club/detail-club.component';
+import {Auth} from './services/auth.service';
+// import {AUTH_PROVIDERS} from 'angular2-jwt';
+import { ProfileComponent } from './profile/profile.component';
+import {UserService} from './services/user.service';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
@@ -41,7 +45,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ClubComponent,
     CreatClubComponent,
-    DetailClubComponent
+    DetailClubComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -52,7 +57,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
   ],
-  providers: [EventService, ChatService],
+  providers: [EventService, ChatService, Auth, UserService],  // , AUTH_PROVIDERS, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
