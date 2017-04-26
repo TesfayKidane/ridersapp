@@ -1,4 +1,4 @@
-<md-card class="club-card">
+<md-card class="club-card" *ngIf="auth.authenticated()">
   <div style="float: right">
     <a [routerLink]="['/event/new', club._id]" md-raised-button color="accent">Create event</a>
     <a [routerLink]="['/announcement/new', club._id]" md-raised-button color="accent">Create announcement</a>

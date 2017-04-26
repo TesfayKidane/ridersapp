@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ClubService} from '../../services/club.service';
 import {ClubModel} from '../../models/ClubModel';
-import {AnnouncementService} from "../../services/announcement.service";
+import {AnnouncementService} from '../../services/announcement.service';
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-detail-club',
@@ -15,8 +16,8 @@ export class DetailClubComponent implements OnInit {
   public announcements;
   constructor(private route: ActivatedRoute,
               private clubService: ClubService,
-              private anService: AnnouncementService) { }
-
+              private anService: AnnouncementService, public auth: Auth) {
+  }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];

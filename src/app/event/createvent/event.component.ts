@@ -5,6 +5,7 @@ import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Auth} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-event',
@@ -16,6 +17,7 @@ export class EventComponent implements OnInit {
   submitted  = false;
   eventForm: FormGroup;
   eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';
+  profile;
   private eventModel = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '', [], []);
 
   // initial center position for the map
@@ -34,8 +36,10 @@ export class EventComponent implements OnInit {
               public fb: FormBuilder,
               public eventService: EventService,
               public router: Router,
-              public auth: Auth
+              public auth: Auth,
+              public userService: UserService,
   ) {
+    this.profile = this.userService.getLoggedInUser();
     this.eventForm = fb.group({
       'eventName' : ['', [Validators.required, Validators.minLength(1)]],
       'eventStartCity' : ['', [Validators.required, Validators.minLength(1)]],
@@ -56,7 +60,7 @@ export class EventComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.eventModel = this.eventForm.value;
-    this.eventModel.eventOwnerId = 1;
+    this.eventModel.eventOwnerId = this.profile._id;
     this.eventModel.eventStatus = 'started';
     this.eventModel.clubId = this.clubId;
     const obj = {type: 'Point', coordinates: [this.lng, this.lat]};
@@ -67,7 +71,7 @@ export class EventComponent implements OnInit {
       .subscribe(
         event => { this.router.navigate(['/events/' + event['0']._id]);
         },
-      err => {console.log(err); }
+        err => {console.log(err); }
     );
   }
 

@@ -9,7 +9,7 @@ export class ChatService {
 
   getChatByRoom(room) {
     return new Promise((resolve, reject) => {
-      this.http.get(SharedService.API_CHAT + room)
+      this.http.get(SharedService.API_CHAT + room, SharedService.API_REQUEST_OPTIONS())
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -21,7 +21,7 @@ export class ChatService {
 
   saveChat(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(SharedService.API_CHAT, data)
+      this.http.post(SharedService.API_CHAT, data, SharedService.API_REQUEST_OPTIONS())
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -32,14 +32,14 @@ export class ChatService {
   }
 
   getUsers() {
-    return this.http.get(SharedService.API_CHAT + 'users');
+    return this.http.get(SharedService.API_CHAT + 'users', SharedService.API_REQUEST_OPTIONS());
   }
 
   getUserMessages(userId: number) {
-    return this.http.get(SharedService.API_CHAT + 'messages/' + userId);
+    return this.http.get(SharedService.API_CHAT + 'messages/' + userId, SharedService.API_REQUEST_OPTIONS);
   }
 
   sendUserMessage(msg) {
-    return this.http.post(SharedService.API_CHAT, msg);
+    return this.http.post(SharedService.API_CHAT, msg, SharedService.API_REQUEST_OPTIONS);
   }
 }

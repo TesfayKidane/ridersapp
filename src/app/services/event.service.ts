@@ -6,53 +6,34 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {EventModel} from '../models/EventModel';
-import {Auth} from './auth.service';
+import {SharedService} from './SharedService';
 @Injectable()
 export class EventService {
-  eventsRes: Object;
-  token = '';
-  private ridersapiUrl = 'http://127.0.0.1:9000/';
-  constructor(public http: Http, public auth: Auth) {
-    this.token = localStorage.getItem('id_token');
-    this.token = this.token === null ? null : this.token.toString();
+  constructor(public http: Http) {
   }
 
   getEventById(id: string){
-    const  url = this.ridersapiUrl + 'events/byId/' + id;
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization' , this.token.toString());
-    const options = new RequestOptions({headers: headers});
-    return this.http.get(url, options);
+    const  url = SharedService.API_URL + 'events/byId/' + id;
+    return this.http.get(url, SharedService.API_REQUEST_OPTIONS());
   }
 
   postEvent(body: Object): Observable<EventModel[]> {
-    const bodyString = JSON.stringify(body);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization' , this.token);
-    const options = new RequestOptions({headers: headers});
-    return this.http.post(this.ridersapiUrl + 'events/addevent/', bodyString, options)
+    return this.http.post(SharedService.API_ADD_EVENT, body, SharedService.API_REQUEST_OPTIONS())
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw('Error Posting to Server'));
   }
-
   getEvents(clubId): Observable<Object> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization' , this.token.toString());
-    const options = new RequestOptions({headers: headers});
-    // return this.http.get(this.ridersapiUrl + 'events/', options)
     if (clubId) {
-      return this.http.get(this.ridersapiUrl + 'events/byClub/' + clubId, options)
+      return this.http.get(SharedService.API_URL + 'events/byClub/' + clubId, SharedService.API_REQUEST_OPTIONS)
         .map((res: Response) => {
           return res.json();
         })
         .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
     }
-    return this.http.get(this.ridersapiUrl + 'events/', options)
+    return this.http.get(SharedService.API_URL + 'events/', SharedService.API_REQUEST_OPTIONS)
                     .map((res: Response) => {
                         return res.json();
                       })
                     .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
-
   }
-
 }

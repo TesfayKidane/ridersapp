@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import {UserService} from './user.service';
 // Avoid name not found warnings
 declare var Auth0Lock: any;
 
@@ -34,17 +33,6 @@ export class Auth {
   public logout() {
     // Remove token from localStorage
     localStorage.removeItem('id_token');
-    // var profile ;
-    // profile = JSON.parse(localStorage.getItem('profile'));
-    // profile._id = profile.email;
-    // profile.token = '';
-    // // this.user = { _id : this.profile.email, name : 'Tesfay', token: this.profile.token};
-    // // console.log(this.profile);
-    // this.userService.postUser(profile)
-    //   .subscribe(
-    //     user => { console.log('user token removed added'); },
-    //     err => {console.log(err); }
-    //   );
     localStorage.removeItem('profile');
   }
 }

@@ -72,4 +72,13 @@ md-sidenav-layout.m2app-dark {
   margin: 20px;
 }
 
-
+.mat-button-focus-overlay, .mat-button-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.mat-ripple {
+  overflow: hidden;
+}

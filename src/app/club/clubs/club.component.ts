@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ClubService} from '../../services/club.service';
+import {Auth} from '../../services/auth.service';
 
 @Component({
   selector: 'app-club',
@@ -8,7 +9,7 @@ import {ClubService} from '../../services/club.service';
 })
 export class ClubComponent implements OnInit {
   clubs;
-  constructor(public clubService: ClubService) {
+  constructor(public clubService: ClubService, private auth: Auth) {
     this.clubService.getClubs()
       .subscribe(
         club => {

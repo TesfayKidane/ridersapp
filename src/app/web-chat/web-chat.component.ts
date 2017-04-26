@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import * as io from 'socket.io-client';
-import {SharedService} from "../services/SharedService";
-import {current} from "codelyzer/util/syntaxKind";
+import {SharedService} from '../services/SharedService';
+import {current} from 'codelyzer/util/syntaxKind';
+import {Auth} from '../services/auth.service';
 
 @Component({
   selector: 'app-web-chat',
@@ -19,7 +20,7 @@ export class WebChatComponent implements OnInit {
   activeUserName = '';
   currentUser = {_id: '1'};
   socket = io(SharedService.API_URL);
-  constructor(public chatdb: ChatService) { }
+  constructor(public chatdb: ChatService, private auth: Auth) { }
 
   ngOnInit() {
     this.chatdb.getUsers().subscribe(s =>  {

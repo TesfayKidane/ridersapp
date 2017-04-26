@@ -1,7 +1,6 @@
-<div class="events-card">
-<div *ngFor="let event of events">
-
-<md-card >
+<div *ngIf="auth.authenticated()">
+<p *ngFor="let event of events">
+<md-card class="events-card">
   <md-card-header>
     <div md-card-avatar class="events-header-image"></div>
     <md-card-title><a href="/events/{{event._id}}">{{event.eventName}}</a></md-card-title>
@@ -18,6 +17,5 @@
     <button md-button>SHARE</button>
   </md-card-actions>
 </md-card>
-
-</div>
+</p>
 </div>

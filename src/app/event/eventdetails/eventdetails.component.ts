@@ -2,7 +2,8 @@ import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
-import {Auth} from "../../services/auth.service";
+import {Auth} from '../../services/auth.service';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-eventdetails',
@@ -23,10 +24,12 @@ export class EventdetailsComponent implements OnInit {
   markers: Marker[] = [];
 
   id;
+  profile;
   public myEvent  = {eventStartLoc: {coordinates: []}, eventEndLoc: {coordinates: []}};
   private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '', [], []);
   place = '';
-  constructor(public route: ActivatedRoute, public eventService: EventService) {
+  constructor(public route: ActivatedRoute, public eventService: EventService, public userService: UserService, public auth: Auth) {
+    this.profile = userService.getLoggedInUser();
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.eventService.getEventById(this.id).subscribe(

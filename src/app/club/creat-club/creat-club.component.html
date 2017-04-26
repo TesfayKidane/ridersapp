@@ -1,4 +1,4 @@
-<md-card class="event-card">
+<md-card class="event-card" *ngIf="auth.authenticated()">
   <div style="float: right">
     <sebm-google-map [latitude]="lat" [longitude]="lng"
                      [zoom]="zoom">
@@ -17,7 +17,6 @@
   <md-card-title>Create Club</md-card-title>
 
   <form [formGroup] = "clubForm" (ngSubmit) = "onSubmit()">
-
     <md-input-container>
       <input mdInput placeholder="Club Name" type="text" id="clubName" name="clubName" #clubName formControlName="clubName">
       <small class="invalid" [hidden]="clubForm.controls['clubName'].valid || (clubForm.controls['clubName'].pristine && !submitted)">
@@ -71,4 +70,3 @@
     <button type="submit" md-raised-button color="accent" [disabled]="!clubForm.valid">Create Club</button>
   </form>
 </md-card>
-

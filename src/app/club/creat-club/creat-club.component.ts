@@ -4,6 +4,7 @@ import { ClubService } from '../../services/club.service';
 import {ClubModel} from '../../models/ClubModel';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/startWith';
+import {Auth} from '../../services/auth.service';
 import {GoogleMapService} from '../../services/googlemap.service';
 
 @Component({
@@ -79,7 +80,7 @@ export class CreatClubComponent implements OnInit {
     'Wisconsin',
     'Wyoming',
   ];
-  constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router) {
+  constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router, public auth: Auth) {
     this.clubForm = this.fb.group({
       'clubName' : ['', [Validators.required, Validators.minLength(1)]],
       'clubDescription' : ['', [Validators.required, Validators.minLength(1)]],
@@ -118,7 +119,6 @@ export class CreatClubComponent implements OnInit {
         err => {console.log(err); }
       );
   }
-
 
   ngOnInit() {
     if ( navigator.geolocation ) {
