@@ -1,6 +1,6 @@
 <div class="row" *ngIf="auth.authenticated()">
   <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
-  <button class="btn btn-success" style="float: right; margin-right: 10px">Create new Club</button>
+  <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
 </div>
 <div class="row">
   <sebm-google-map [latitude]="lat" [longitude]="lng"
