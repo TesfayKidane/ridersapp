@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ClubService} from '../../services/club.service';
 import {Auth} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-club',
@@ -9,12 +10,21 @@ import {Auth} from '../../services/auth.service';
 })
 export class ClubComponent implements OnInit {
   clubs;
-  constructor(public clubService: ClubService, private auth: Auth) {
+  profile;
+  constructor(public clubService: ClubService, private auth: Auth, public userService: UserService) {
+    this.profile = this.userService.getLoggedInUser();
     this.clubService.getClubs()
       .subscribe(
         club => {
             console.log(club.json());
             this.clubs = club.json();
+            for ( const key in this.clubs ) {
+              if (this.clubs[key].userIds.indexOf(this.profile._id) > -1) {
+                this.clubs[key].joined = true;
+              } else {
+                this.clubs[key].joined = false;
+              }
+            }
           },
         err => {console.log(err); }
       );
@@ -23,4 +33,16 @@ export class ClubComponent implements OnInit {
   ngOnInit() {
   }
 
+  joinClub(club) {
+    const clubId = club._id;
+    this.clubService.joinClubs(clubId, this.profile._id)
+      .subscribe(
+        rclub => {
+          console.log(rclub.json());
+          club.joined = true;
+          club.userIds.push(this.profile._id);
+        },
+        err => {console.log(err); }
+      );
+  }
 }

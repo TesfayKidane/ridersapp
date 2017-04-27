@@ -6,6 +6,9 @@ import {Router} from '@angular/router';
 import 'rxjs/add/operator/startWith';
 import {Auth} from '../../services/auth.service';
 import {GoogleMapService} from '../../services/googlemap.service';
+import {UserService} from "../../services/user.service";
+import {SharedService} from "../../services/SharedService";
+import { Headers } from '@angular/http';
 
 @Component({
   selector: 'app-creat-club',
@@ -80,7 +83,13 @@ export class CreatClubComponent implements OnInit {
     'Wisconsin',
     'Wyoming',
   ];
-  constructor(public fb: FormBuilder, public clubService: ClubService, private router: Router, public auth: Auth) {
+  profile;
+  constructor(public fb: FormBuilder,
+              public clubService: ClubService,
+              private router: Router,
+              public auth: Auth,
+              public userService: UserService) {
+    this.profile = this.userService.getLoggedInUser();
     this.clubForm = this.fb.group({
       'clubName' : ['', [Validators.required, Validators.minLength(1)]],
       'clubDescription' : ['', [Validators.required, Validators.minLength(1)]],
@@ -105,10 +114,10 @@ export class CreatClubComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.clubModel = this.clubForm.value;
-    this.clubModel.clubOwnerId = 1;
+    this.clubModel.clubOwnerId = this.profile._id;
     const obj = {type: 'Point', coordinates: [this.lng, this.lat]};
     this.clubModel.loc = obj;
-    this.clubModel.userIds = [{userId : "1"}];
+    this.clubModel.userIds = [this.profile._id];
     this.clubModel.eventIds = [];
     this.clubModel.announceIds = [];
     console.log(this.clubModel);
@@ -155,6 +164,32 @@ export class CreatClubComponent implements OnInit {
     this.lng = $event.coords.lng;
   }
 
+  // file upload
+  uploadFile: any;
+  hasBaseDropZoneOver: boolean = false;
+  options: Object = {
+    url: SharedService.API_URL + 'imageUpload',
+    customHeaders : { 'email': 'jaraaxai@gmail.com' }
+  };
+  sizeLimit = 2000000;
+
+  handleUpload(data): void {
+    if (data && data.response) {
+      data = JSON.parse(data.response);
+      this.uploadFile = data;
+    }
+  }
+
+  fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  beforeUpload(uploadingFile): void {
+    if (uploadingFile.size > this.sizeLimit) {
+      uploadingFile.setAbort();
+      alert('File is too large');
+    }
+  }
 }
 interface Marker {
   lat: number;

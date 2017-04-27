@@ -34,7 +34,9 @@
       <td> {{club.clubCity}} </td>
       <td> {{club.clubState}} </td>
       <td> {{club.clubPostCode}} </td>
-      <td><button type="button" md-raised-button color="accent">Join</button> </td>
+      <td>
+        <button type="button" md-raised-button color="accent" [disabled]="club.joined" (click)="joinClub(club)">Join club</button>
+      </td>
     </tr>
     </tbody>
     <md-divider></md-divider>

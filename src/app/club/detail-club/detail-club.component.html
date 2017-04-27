@@ -6,12 +6,15 @@
   <md-card-title>{{club.clubName}}</md-card-title>
   <img src="{{club.clubImage}}"/>
   <p>{{club.clubDescription}}</p>
+  <div style="float: right;">
+    <h4>Announcements</h4>
   <table>
     <thead>
     <tr>
       <th>#</th>
       <th>Announcement</th>
       <th>Created At</th>
+      <th *ngIf="isOwner">#</th>
     </tr>
     </thead>
     <tbody>
@@ -19,18 +22,26 @@
       <td> {{i+1}} </td>
       <td> {{announcement.content}} </td>
       <td> {{announcement.createdAt | date: 'short'}} </td>
+      <td *ngIf="isOwner"><a (click)="deleteAn(announcement)">x</a></td>
     </tr>
     </tbody>
     <md-divider></md-divider>
 
   </table>
-  <div>{{club.clubDescription}}</div>
+    <h4>Members</h4>
+    <ul class="userlist">
+      <li *ngFor="let profile of members" >
+        <md-card-header>
+          <img md-card-avatar src={{profile.picture}}>
+          <md-card-title><a href="">{{profile.name}}</a></md-card-title>
+          <md-card-subtitle>{{profile.email}}</md-card-subtitle>
+        </md-card-header></li>
+    </ul>
+  </div>
     <div>
-      Events
+      <h4>Events</h4>
       <app-events [clubId]="id"></app-events>
     </div>
-    <div>Members
 
-    </div>
 
 </md-card>

@@ -37,6 +37,11 @@ export class ClubService {
   }
 
   pushAnnounceId( updateObject) {
-    this.http.post(this.ridersapiUrl + 'clubs/addAnnounce', updateObject );
+    this.http.post(this.ridersapiUrl + 'clubs/addAnnounce', updateObject, SharedService.API_REQUEST_OPTIONS());
+  }
+
+  joinClubs(clubId, userId) {
+    const obj = { clubId: clubId, userId: userId };
+    return this.http.post(this.ridersapiUrl + 'clubs/addUser', obj, SharedService.API_REQUEST_OPTIONS());
   }
 }
