@@ -16,8 +16,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   joinned = false;
   newUser = { nickname: '', room: '' };
   msgData = { room: '', nickname: '', message: '' };
-  socket = io('http://localhost:9000');
-
+  // socket = io('http://localhost:9000');
+  socket = io('https://cyclingapi.herokuapp.com/');
   constructor(private chatService: ChatService, public auth: Auth) {}
 
   ngOnInit() {
