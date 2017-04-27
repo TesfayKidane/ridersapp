@@ -66,6 +66,11 @@
     <md-input-container class="table-location">
       <input mdInput placeholder="Club Image" type="text" id="clubImage" name="clubImage" #clubImage formControlName="clubImage" value="">
     </md-input-container>
+    <!--<input type="file"-->
+           <!--ngFileSelect-->
+           <!--[options]="options"-->
+           <!--(onUpload)="handleUpload($event)"-->
+           <!--(beforeUpload)="beforeUpload($event)">-->
     <br>
     <button type="submit" md-raised-button color="accent" [disabled]="!clubForm.valid">Create Club</button>
   </form>

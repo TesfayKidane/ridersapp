@@ -98,3 +98,7 @@ table tr:hover td {
 .clubLogo{
   max-height: 60px;
 }
+
+.userlist{
+  list-style: none;
+}
