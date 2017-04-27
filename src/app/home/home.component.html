@@ -11,7 +11,7 @@
       *ngFor="let m of markers; let i = index"
       [latitude]="m.lat"
       [longitude]="m.lng"
-      [label]="m.label"
+
       (markerClick)="clickedMarker(m.label, i)"
       [markerDraggable]="m.draggable"
       (dragEnd)="markerDragEnd(m, $event)"
@@ -36,4 +36,22 @@
                             [editable]="true">
     </sebm-google-map-circle>
   </sebm-google-map>
+</div>
+<div class="row">
+  <table class="table table-bordered table-responsive table-condensed table-striped">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>City</td>
+        <td>Description</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let m of markers; let i = index">
+        <td>{{m.clubName}}</td>
+        <td>{{m.clubCity}}</td>
+        <td>{{m.clubDescription}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

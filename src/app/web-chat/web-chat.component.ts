@@ -19,9 +19,10 @@ export class WebChatComponent implements OnInit {
   activeUserId;
   activeUserName = '';
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  socket;
 
-  socket = io(SharedService.API_URL);
   constructor(public chatdb: ChatService, private auth: Auth) {
+    this.socket = chatdb.getSocket();
   }
   ngAfterViewChecked() {
     this.scrollToBottom();

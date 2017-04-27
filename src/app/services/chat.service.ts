@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {SharedService} from './SharedService';
-
+import * as io from 'socket.io-client';
 @Injectable()
 export class ChatService {
-
-  constructor(private http: Http) { }
+  socket;
+  constructor(private http: Http) {
+    this.socket = io(SharedService.API_URL);
+  }
 
   getChatByRoom(room) {
     return new Promise((resolve, reject) => {
@@ -41,5 +43,9 @@ export class ChatService {
 
   sendUserMessage(msg) {
     return this.http.post(SharedService.API_CHAT, msg, SharedService.API_REQUEST_OPTIONS());
+  }
+
+  getSocket() {
+    return this.socket;
   }
 }

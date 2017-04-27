@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {GoogleMapService} from '../services/googlemap.service';
 import {ClubService} from '../services/club.service';
-import {Auth} from '../services/auth.service';
+import {Auth} from "../services/auth.service";
+import {ChatService} from "../services/chat.service";
 
 @Component({
   selector: 'app-home',
@@ -10,30 +11,38 @@ import {Auth} from '../services/auth.service';
 })
 export class HomeComponent implements OnInit {
   // google maps zoom level
-  zoom: number = 10;
-
+  zoom = 10;
+  showMarkers = false;
   // initial center position for the map
-  lat: number = 41.018210;
+  lat = 41.018210;
   lng: number = -91.970417;
   location = {};
   markers: Marker[] = [];
   showCircle= false;
   btnText = 'Select Clubs';
-  constructor(public mapdb: ClubService, private auth: Auth) { }
+  constructor(public mapdb: ClubService, private auth: Auth, private chat: ChatService) {
+    chat.socket.connect();
+    console.log(chat.socket.connected);
+  }
 
   ngOnInit() {
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
     }
   }
   showClubs() {
+    this.showMarkers = true;
     this.mapdb.getNearbyClubs(this.lat, this.lng).subscribe(s => {
       const json = s.json();
+      console.log(json);
       for (const key in json) {
         this.markers.push({
           lat: json[key].loc.coordinates[1],
           lng: json[key].loc.coordinates[0],
-          label: json[key].loc.clubName,
+          label: json[key].clubName,
+          clubName: json[key].clubName,
+          clubCity: json[key].clubCity,
+          clubDescription: json[key].clubDescription,
           draggable: false
         });
       }
