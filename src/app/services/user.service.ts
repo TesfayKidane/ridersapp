@@ -19,4 +19,12 @@ export class UserService {
     profile.token = localStorage.getItem('id_token');
     return profile;
   }
+
+  getUserById(id) {
+    console.log('request get : ' + SharedService.API_URL_USERS + 'byId/' + id);
+
+    return this.http.get(SharedService.API_URL_USERS + 'byId/' + id, SharedService.API_REQUEST_OPTIONS())
+      .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw('Error Posting to Server'));
+  }
 }

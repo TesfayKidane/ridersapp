@@ -27,14 +27,18 @@
   </table>
   </div>
   <div class="button-row">
-    <button md-raised-button >Join</button>
-    <button md-raised-button >Edit</button>
+    <button md-raised-button (click)="onJoinEvent()"  [disabled]="joined || isOwner">
+      <label *ngIf="!joined">Join</label><label *ngIf="joined">joined</label>
+    </button>
+
+    <button md-raised-button [disabled]="started || !isOwner" >Start</button>
+    <button md-raised-button [disabled]="!started || !isOwner">Stop</button>
  </div>
   <hr>
   <div class="panel-group">
     <md-card-title-group>
       <md-card-title>{{event.eventStartDateTime}}</md-card-title>
-      <md-card-subtitle>Event Status : <b> {{event.eventStatus}} </b></md-card-subtitle>
+      <md-card-subtitle>Event Status : <b *ngIf="event.eventStatus">Started</b><b *ngIf="!event.eventStatus">Not Started</b></md-card-subtitle>
     </md-card-title-group>
   </div>
   <div class="panel-group">
@@ -63,7 +67,7 @@
 </md-card>
 <md-card class="event-card" >
   <md-card-title-group>
-  <md-card-title>20 People are participating</md-card-title>
+    <md-card-title><h4>{{participants}} Participants</h4></md-card-title>
   <md-card-subtitle>Please spread the word!</md-card-subtitle>
   </md-card-title-group>
 </md-card>

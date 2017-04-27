@@ -24,16 +24,24 @@ export class EventService {
   }
   getEvents(clubId): Observable<Object> {
     if (clubId) {
-      return this.http.get(SharedService.API_URL + 'events/byClub/' + clubId, SharedService.API_REQUEST_OPTIONS)
+      return this.http.get(SharedService.API_URL + 'events/byClub/' + clubId, SharedService.API_REQUEST_OPTIONS())
         .map((res: Response) => {
           return res.json();
         })
         .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
     }
-    return this.http.get(SharedService.API_URL + 'events/', SharedService.API_REQUEST_OPTIONS)
+    return this.http.get(SharedService.API_URL + 'events/', SharedService.API_REQUEST_OPTIONS())
                     .map((res: Response) => {
                         return res.json();
                       })
                     .catch((err: any) => Observable.throw('Error fetching data from ridersapi'));
+  }
+
+  addUserToEvent(eventId: any, userId: any): Observable<EventModel[]> {
+    const requestBody = {'eventId' : eventId, 'userId': userId};
+    return this.http.post(SharedService.API_ADD_USER_TO_EVENT, requestBody, SharedService.API_REQUEST_OPTIONS())
+      .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw('Error Posting to Server'));
+
   }
 }

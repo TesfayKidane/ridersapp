@@ -18,7 +18,7 @@ export class EventComponent implements OnInit {
   eventForm: FormGroup;
   eventDesc = 'The Tour de France is an annual multiple stage bicycle race primarily held in France, while also occasionally making passes through nearby countries.';
   profile;
-  private eventModel = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '', [], []);
+  private eventModel = new EventModel('', '', '', '', 0, '', '', 0, new Date(), 1, false, null, '', '', [], []);
 
   // initial center position for the map
   zoom: number = 10;
@@ -61,12 +61,13 @@ export class EventComponent implements OnInit {
     this.submitted = true;
     this.eventModel = this.eventForm.value;
     this.eventModel.eventOwnerId = this.profile._id;
-    this.eventModel.eventStatus = 'started';
+    this.eventModel.eventStatus = false;
     this.eventModel.clubId = this.clubId;
     const obj = {type: 'Point', coordinates: [this.lng, this.lat]};
     const obj2 = {type: 'Point', coordinates: [this.lng2, this.lat2]};
     this.eventModel.eventStartLoc = obj;
     this.eventModel.eventEndLoc = obj2;
+    this.eventModel.eventUserIds = [this.profile._id];
     this.eventService.postEvent(this.eventModel)
       .subscribe(
         event => { this.router.navigate(['/events/' + event['0']._id]);
