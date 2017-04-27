@@ -4,6 +4,7 @@ import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {Auth} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-eventdetails',
@@ -34,7 +35,10 @@ export class EventdetailsComponent implements OnInit {
   private event = new EventModel('', '', '', '', 0, '', '', 0, new Date(), 1, false, null, '', '', [], []);
   place = '';
   eventOwnerName;
+  message;
+  obSubs;
   constructor(public route: ActivatedRoute, public eventService: EventService, public userService: UserService, public auth: Auth) {
+
     this.currentUserProfile = userService.getLoggedInUser();
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -106,7 +110,43 @@ export class EventdetailsComponent implements OnInit {
     if (this.event.eventStatus) {
       this.started = true;
     }
-    this.participants = data['eventUserIds'].length;
+
+    if ( this.isOwner && this.started ) {
+      this.startEvent();
+    }
+    this.participants = data['eventUserIds'] ? data['eventUserIds'].length : 0;
+  }
+
+  stopEvent() {
+    this.obSubs.unsubscribe();
+    console.log('stoped');
+    this.started = false;
+  }
+
+  startEvent() {
+    // test interval
+    console.log('started');
+    this.obSubs = Observable.interval(3000)
+      .map( (x) => x + 1 )
+      .subscribe((x) => {
+        this.message = x;
+        if ( navigator.geolocation ) {
+          navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
+        }
+      });
+    // endtest interval
+  }
+
+  setPosition(position) {
+    this.location = position.coords;
+    const currentLat = position.coords.latitude;
+    const currentLng = position.coords.longitude;
+    this.markers.push({
+      lat: currentLat,
+      lng: currentLng,
+      draggable: false,
+      iconUrl: 'http://www.hckrecruitment.nic.in/images/blue.png'
+    });
   }
 }
 interface Marker {
