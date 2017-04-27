@@ -1,4 +1,4 @@
-<div class="col-md-3 left" style="">
+<div class="col-md-3 left" style="" *ngIf="auth.authenticated()">
   <div class="top">
     <input type="text" (onkeyup)="0" #search>
     <a href="javascript:;" class="search"></a>
@@ -7,21 +7,21 @@
       <li *ngFor="let user of users" (click)="onUserClick(user)"
           class="person" [ngClass]="activeUserId == user._id ? 'active' : ''">
           <!--*ngIf="onSearch(user.firstName,  user.lastName,  search.value)"-->
-        <img src="http://s13.postimg.org/ih41k9tqr/img1.jpg" alt="">
-        <span class="name">{{user.firstName}} {{user.lastName}}</span>
+        <img src="{{user.picture}}" alt="">
+        <span class="name truncate">{{user.name}}</span>
         <span class="time">17:11</span>
-        <div class="preview">{{userActions[user._id + '#' + currentUser._id]}}</div>
+        <div class="preview">{{userActions[user._id]}}</div>
       </li>
     </ul>
   </div>
   <div class="col-md-8 right" >
     <div class="top"><span>To: <span class="name">{{activeUserName}}</span></span></div>
     <div class="chat active-chat" >
-      <div style="overflow-y: auto; max-height: 500px">
+      <div #scrollMe style="overflow-y: auto; max-height: 500px">
         <div class="conversation-start">
           <span>Today, 5:38 PM</span>
         </div>
-        <div *ngFor="let m of messages" class="bubble {{m.fromId == 1 || m.from == undefined ? 'me' : 'you'}}">
+        <div  *ngFor="let m of messages" class="bubble {{m.toId == this.activeUserId ? 'me' : 'you'}}">
           {{m.msg}}
         </div>
       </div>

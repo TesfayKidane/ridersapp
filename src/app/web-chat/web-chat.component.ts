@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import * as io from 'socket.io-client';
 import {SharedService} from '../services/SharedService';
-import {current} from 'codelyzer/util/syntaxKind';
+
 import {Auth} from '../services/auth.service';
 
 @Component({
@@ -18,16 +18,32 @@ export class WebChatComponent implements OnInit {
   joined = false;
   activeUserId;
   activeUserName = '';
-  currentUser = {_id: '1'};
-  socket = io(SharedService.API_URL);
-  constructor(public chatdb: ChatService, private auth: Auth) { }
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
+  socket = io(SharedService.API_URL);
+  constructor(public chatdb: ChatService, private auth: Auth) {
+  }
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
   ngOnInit() {
+    console.log(this.socket);
+    this.socket.on('connect', function(){
+      console.log('connect done');
+      this.socket.emit('authenticate', {headers: {
+        token: localStorage.getItem('id_token'),
+        email: JSON.parse(localStorage.getItem('profile')).email}
+      }); }.bind(this));
     this.chatdb.getUsers().subscribe(s =>  {
       this.users = s.json();
       console.log(s.json());
-      for (const key in this.users) {
-        this.userActions[this.users[key]._id + '#' + this.currentUser._id] = '';
+      for( const key in this.users ) {
+        this.userActions[this.users[key]._id] = '';
       }
       console.log(this.userActions);
     });
@@ -36,10 +52,10 @@ export class WebChatComponent implements OnInit {
       console.log('ngInit');
       this.joined = true;
     }
-    this.socket.on('new-message', function (data) {
-      if ( data.message.toId === this.currentUser._id ) {
-        this.messages.push(data.message);
-      }
+    this.socket.on('new-message', function (message) {
+      console.log(message);
+      this.messages.push(message);
+      this.scrollToBottom();
     }.bind(this));
     this.socket.on('heistyping', function (data) {
       console.log(data);
@@ -47,6 +63,7 @@ export class WebChatComponent implements OnInit {
       this.userActions[data.message.hash] = 'typing...';
       this.clearLater(data.message.hash);
     }.bind(this));
+    this.scrollToBottom();
   }
   clearLater(fromId) {
     setTimeout((p1) => {
@@ -55,8 +72,12 @@ export class WebChatComponent implements OnInit {
   }
   onUserClick(user) {
     this.activeUserId = user._id;
-    this.activeUserName = user.firstName + ' ' + user.lastName;
-    this.chatdb.getUserMessages(this.activeUserId).subscribe(s => this.messages = s.json());
+    this.activeUserName = user.name;
+    this.chatdb.getUserMessages(this.activeUserId).subscribe(s => {
+      this.messages = s.json();
+      console.log(this.messages);
+      console.log(this.activeUserId);
+    });
   }
   onTyping() {
     this.socket.emit('iamtyping', {toId: this.activeUserId });
@@ -70,7 +91,6 @@ export class WebChatComponent implements OnInit {
     const msg = {msg: newMessage, toId: this.activeUserId};
     this.chatdb.sendUserMessage(msg).subscribe(s => console.log(s.json()));
     this.messages.push(msg);
-    this.socket.emit('save-message', msg);
     this.newMessage = '';
   }
   onSearch(fullname: string,  value: string ) {

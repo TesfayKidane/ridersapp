@@ -2,7 +2,7 @@
   <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
   <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
 </div>
-<div class="row">
+<div class="row" *ngIf="auth.authenticated()">
   <sebm-google-map [latitude]="lat" [longitude]="lng"
                    [zoom]="zoom"
                    (mapClick)="mapClicked($event)">

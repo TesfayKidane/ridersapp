@@ -5,6 +5,12 @@
   cursor: pointer;
   background-color: #fff;
 }
+.truncate {
+  width: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .active-chat {
   min-height: 400px;
 }
