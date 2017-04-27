@@ -9,6 +9,7 @@ export class SharedService {
   static API_USER_ADD = SharedService.API_URL + 'users/adduser/';
   static API_EVENTS = SharedService.API_URL + 'events/';
   static API_ADD_EVENT = SharedService.API_EVENTS + 'addevent/';
+  static AUTH = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqTkJNMEl6T0RKQ09EYzFNRVpGT1VRNE1FTkVNVEUxT1RreE4wUXdOakEzTXpFMU1rTTRSQSJ9';
 
   static API_REQUEST_OPTIONS = (function () {
     const headers = new Headers({'Content-Type': 'application/json'});
