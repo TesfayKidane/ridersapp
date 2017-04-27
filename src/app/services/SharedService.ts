@@ -6,9 +6,13 @@ import {RequestOptions, Headers} from '@angular/http';
 export class SharedService {
   static API_URL = 'http://localhost:9000/';
   static API_CHAT = SharedService.API_URL + 'chat/';
-  static API_USER_ADD = SharedService.API_URL + 'users/adduser/';
+  static API_URL_USERS = SharedService.API_URL + 'users/';
+  static API_USER_ADD = SharedService.API_URL_USERS + 'adduser/';
+
   static API_EVENTS = SharedService.API_URL + 'events/';
   static API_ADD_EVENT = SharedService.API_EVENTS + 'addevent/';
+  static API_ADD_USER_TO_EVENT = SharedService.API_EVENTS + 'adduser/' +
+    ''
 
   static API_REQUEST_OPTIONS = (function () {
     const headers = new Headers({'Content-Type': 'application/json'});

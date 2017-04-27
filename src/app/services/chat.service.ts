@@ -36,10 +36,10 @@ export class ChatService {
   }
 
   getUserMessages(userId: number) {
-    return this.http.get(SharedService.API_CHAT + 'messages/' + userId, SharedService.API_REQUEST_OPTIONS);
+    return this.http.get(SharedService.API_CHAT + 'messages/' + userId, SharedService.API_REQUEST_OPTIONS());
   }
 
   sendUserMessage(msg) {
-    return this.http.post(SharedService.API_CHAT, msg, SharedService.API_REQUEST_OPTIONS);
+    return this.http.post(SharedService.API_CHAT, msg, SharedService.API_REQUEST_OPTIONS());
   }
 }

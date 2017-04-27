@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {EventModel} from '../../models/EventModel';
 import {Auth} from '../../services/auth.service';
-import {UserService} from "../../services/user.service";
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-eventdetails',
@@ -12,31 +12,35 @@ import {UserService} from "../../services/user.service";
 })
 export class EventdetailsComponent implements OnInit {
   // initial center position for the map
-  zoom: number = 10;
+  isOwner = false;
+  joined  = false;
+  started = false;
+  participants = 0;
+
+  zoom = 10;
 
   lng: number = -91.970417;
-  lat: number = 41.018210;
+  lat = 41.018210;
 
   lng2: number = -91.970417;
-  lat2: number = 40.918210;
+  lat2 = 40.918210;
 
   location = {};
   markers: Marker[] = [];
 
   id;
-  profile;
+  currentUserProfile;
   public myEvent  = {eventStartLoc: {coordinates: []}, eventEndLoc: {coordinates: []}};
-  private event = new EventModel('', '', '', 0, '', '', 0, new Date(), 1, '', null, '', '', [], []);
+  private event = new EventModel('', '', '', '', 0, '', '', 0, new Date(), 1, false, null, '', '', [], []);
   place = '';
+  eventOwnerName;
   constructor(public route: ActivatedRoute, public eventService: EventService, public userService: UserService, public auth: Auth) {
-    this.profile = userService.getLoggedInUser();
+    this.currentUserProfile = userService.getLoggedInUser();
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.eventService.getEventById(this.id).subscribe(
         (data) => {
           this.myEvent = data.json();
-          console.log(data.json());
-          console.log('salom');
           this.copyObjectToModel(data.json());
           this.lng = this.myEvent.eventStartLoc.coordinates[0];
           this.lat = this.myEvent.eventStartLoc.coordinates[1];
@@ -65,8 +69,20 @@ export class EventdetailsComponent implements OnInit {
   }
   ngOnInit() {
   }
-
+  onJoinEvent() {
+    this.eventService.addUserToEvent(this.event.eventId, this.currentUserProfile._id).subscribe(
+      (data) => {
+        console.log(data);
+        this.participants++;
+        this.joined = true;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
   private copyObjectToModel(data: Object) {
+    this.event.eventId = data['_id'];
     this.event.eventName = data['eventName'];
     this.event.eventStatus = data['eventStatus'];
     this.event.eventDesc = data['eventDesc'];
@@ -78,7 +94,19 @@ export class EventdetailsComponent implements OnInit {
     this.event.eventEndState = data['eventEndState'];
     this.event.eventEndPostCode = data['eventEndPostCode'];
     this.event.eventStartDateTime = data['eventStartDateTime'];
-    this.event.eventUsers = data['eventUsers'];
+    // this.event.eventUsers = data['eventUsers'];
+
+    this.eventOwnerName =  this.userService.getUserById(data['eventOwnerId']);
+    console.log('ownerId : ' + this.event.eventOwnerId + ', eventOwnerName : ' + this.eventOwnerName);
+
+    if (this.currentUserProfile._id === this.event.eventOwnerId) {
+      this.isOwner = true;
+    }
+
+    if (this.event.eventStatus) {
+      this.started = true;
+    }
+    this.participants = data['eventUserIds'].length;
   }
 }
 interface Marker {

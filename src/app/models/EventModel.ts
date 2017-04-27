@@ -4,6 +4,7 @@
 
 export class EventModel {
   constructor(
+    public eventId: string,
   public eventName: string,
   public eventStartCity: string,
   public eventStartState: string,
@@ -13,8 +14,8 @@ export class EventModel {
   public eventEndPostCode: number,
   public eventStartDateTime: Date,
   public eventOwnerId: number,
-  public eventStatus: string,
-  public eventUsers: [any],
+  public eventStatus: boolean,
+  public eventUserIds: any,
   public eventDesc: string,
   public clubId: string,
   public eventStartLoc: any,
