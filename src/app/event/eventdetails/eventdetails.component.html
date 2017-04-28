@@ -31,8 +31,12 @@
       <label *ngIf="!joined">Join</label><label *ngIf="joined">joined</label>
     </button>
 
-    <button md-raised-button [disabled]="started || !isOwner" >Start</button>
-    <button md-raised-button [disabled]="!started || !isOwner">Stop</button>
+    <button md-raised-button [disabled]="started || !isOwner" (click)="startEvent()">Start</button>
+
+    <button md-raised-button [disabled]="!started || !isOwner" (click)="stopEvent()">Stop</button>
+    <div>
+      {{message}}
+    </div>
  </div>
   <hr>
   <div class="panel-group">
