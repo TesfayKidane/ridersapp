@@ -101,7 +101,6 @@ export class EventdetailsComponent implements OnInit {
     // this.event.eventUsers = data['eventUsers'];
 
     this.eventOwnerName =  this.userService.getUserById(data['eventOwnerId']);
-    console.log('ownerId : ' + this.event.eventOwnerId + ', eventOwnerName : ' + this.eventOwnerName);
 
     if (this.currentUserProfile._id === this.event.eventOwnerId) {
       this.isOwner = true;
@@ -119,13 +118,11 @@ export class EventdetailsComponent implements OnInit {
 
   stopEvent() {
     this.obSubs.unsubscribe();
-    console.log('stoped');
     this.started = false;
   }
 
   startEvent() {
     // test interval
-    console.log('started');
     this.obSubs = Observable.interval(3000)
       .map( (x) => x + 1 )
       .subscribe((x) => {

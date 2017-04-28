@@ -19,7 +19,6 @@ export class SharedService {
       });
       static API_REQUEST_OPTIONS = (function () {
       const profile = JSON.parse(localStorage.getItem('profile'));
-      console.log(profile);
       const token = localStorage.getItem('id_token');
       const headers = new Headers({'Content-Type': 'application/json'});
       const access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqTkJNMEl6T0RKQ09EYzFNRVpGT1VRNE1FTkVNVEUxT1RreE4wUXdOakEzTXpFMU1rTTRSQSJ9.eyJpc3MiOiJodHRwczovL2Jpa2VyaWRlcnMuYXV0aDAuY29tLyIsInN1YiI6InpHTWhDMVpEeVNYdUY5YnkxVEZSTVQ4Y2RpeHFGSnRsQGNsaWVudHMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjkwMDAiLCJleHAiOjE0OTMzODY2MjgsImlhdCI6MTQ5MzMwMDIyOCwic2NvcGUiOiIifQ.ooi_PeJLPDW8ghLL-9TX9IMwS68oNq5IOxSYE9IgBBmiYonEgKU4nJzfg0q1JL6l17sZUlbgovwLkwCLtJlpvY1nJkbzz-nrt9M-_dmFNavJxydqKtCEEmblCEifr_OFxCo5hdwRO2tW78EnjRLlUdkcEp1LfhzX8w4M6b0_VNJ2_4bXTPVCdt3G46eeU5VNLG2sykwn3gseavjIcYr8-lH_JEGU9AegUpQO0fL_KMq77D1xwcIflYzoxysGkvjI-XqtOsYVG_0TpBzYk7Nf6mhA4VivY-vOfzbStAYPENkom0yXv6jMP8tKNqYMOdq7tBZkSi33czlRoYdGk69BlQ';

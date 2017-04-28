@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   btnText = 'Select Clubs';
   constructor(public mapdb: ClubService, private auth: Auth, private chat: ChatService) {
     chat.socket.connect();
-    console.log(chat.socket.connected);
   }
 
   ngOnInit() {
@@ -34,7 +33,6 @@ export class HomeComponent implements OnInit {
     this.showMarkers = true;
     this.mapdb.getNearbyClubs(this.lat, this.lng).subscribe(s => {
       const json = s.json();
-      console.log(json);
       for (const key in json) {
         this.markers.push({
           lat: json[key].loc.coordinates[1],
@@ -57,13 +55,10 @@ export class HomeComponent implements OnInit {
   }
   setPosition(position) {
     this.location = position.coords;
-    console.log(position.coords);
   }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
   }
   markerDragEnd(m: Marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
   }
   mapClicked($event) {
     this.markers.push({

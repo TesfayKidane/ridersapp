@@ -38,7 +38,6 @@ export class CreateAnnouncementComponent implements OnInit {
     this.anModel.createdAt = new Date();
     this.anModel.status = true;
     this.anModel.clubId = this.clubId;
-    console.log(this.anModel);
     this.anService.postAnnouncement(this.anModel)
       .subscribe(
         club => {

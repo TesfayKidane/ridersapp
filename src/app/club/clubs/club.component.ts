@@ -16,7 +16,6 @@ export class ClubComponent implements OnInit {
     this.clubService.getClubs()
       .subscribe(
         club => {
-            console.log(club.json());
             this.clubs = club.json();
             for ( const key in this.clubs ) {
               if (this.clubs[key].userIds.indexOf(this.profile._id) > -1) {
@@ -38,7 +37,6 @@ export class ClubComponent implements OnInit {
     this.clubService.joinClubs(clubId, this.profile._id)
       .subscribe(
         rclub => {
-          console.log(rclub.json());
           club.joined = true;
           club.userIds.push(this.profile._id);
         },

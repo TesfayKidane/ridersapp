@@ -17,7 +17,6 @@ export class SearchUserPipe implements PipeTransform {
   }
 
   search(value: string ) {
-    console.log(value);
     for ( const key in this.users) {
       const fullname  = this.users[key].firstName + ' ' + this.users[key].lastName;
       if ( fullname.toLowerCase().indexOf(value.toLowerCase()) >= 0  || value.length === 0) {
