@@ -3,10 +3,10 @@
 <md-card class="events-card">
   <md-card-header>
     <div md-card-avatar class="events-header-image"></div>
-    <md-card-title><a href="/events/{{event._id}}">{{event.eventName}}</a></md-card-title>
+    <md-card-title><a href="events/{{event._id}}">{{event.eventName}}</a></md-card-title>
     <md-card-subtitle>Organized by : <a>{{event.eventOwnerId}}</a>, Starts at : <b>{{event.eventStartDateTime}}</b></md-card-subtitle>
   </md-card-header>
-  <img md-card-image src="../../../assets/biking.jpg">
+  <img md-card-image src="http://www.horshamcycling.co.uk/joomla15/images/stories/horsham/flypass.jpg">
   <md-card-content>
     <p>
     {{event.eventDesc}}

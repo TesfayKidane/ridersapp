@@ -120,7 +120,6 @@ export class CreatClubComponent implements OnInit {
     this.clubModel.userIds = [this.profile._id];
     this.clubModel.eventIds = [];
     this.clubModel.announceIds = [];
-    console.log(this.clubModel);
     this.clubService.postClub(this.clubModel)
       .subscribe(
         club => { this.router.navigate(['/club/' + club['0']._id]);
@@ -146,10 +145,8 @@ export class CreatClubComponent implements OnInit {
     this.lng = position.coords.longitude;
   }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
   }
   markerDragEnd(m: Marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event['coords']);
     this.lat = $event['coords'].lat;
     this.lng = $event['coords'].lng;
   }

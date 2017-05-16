@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
     this.profile.token = localStorage.getItem('id_token');
     this.userService.postUser(this.profile)
       .subscribe(
-        user => { console.log('user added'); },
         err => {console.log(err); }
       );
   }

@@ -19,9 +19,10 @@ export class WebChatComponent implements OnInit {
   activeUserId;
   activeUserName = '';
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  socket;
 
-  socket = io(SharedService.API_URL);
   constructor(public chatdb: ChatService, private auth: Auth) {
+    this.socket = chatdb.getSocket();
   }
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -32,34 +33,26 @@ export class WebChatComponent implements OnInit {
     } catch(err) { }
   }
   ngOnInit() {
-    console.log(this.socket);
     this.socket.on('connect', function(){
-      console.log('connect done');
       this.socket.emit('authenticate', {headers: {
         token: localStorage.getItem('id_token'),
         email: JSON.parse(localStorage.getItem('profile')).email}
       }); }.bind(this));
     this.chatdb.getUsers().subscribe(s =>  {
       this.users = s.json();
-      console.log(s.json());
       for( const key in this.users ) {
         this.userActions[this.users[key]._id] = '';
       }
-      console.log(this.userActions);
     });
     const user = JSON.parse(localStorage.getItem('user'));
     if (user !== null) {
-      console.log('ngInit');
       this.joined = true;
     }
     this.socket.on('new-message', function (message) {
-      console.log(message);
       this.messages.push(message);
       this.scrollToBottom();
     }.bind(this));
     this.socket.on('heistyping', function (data) {
-      console.log(data);
-      console.log(this.userActions);
       this.userActions[data.message.hash] = 'typing...';
       this.clearLater(data.message.hash);
     }.bind(this));
@@ -75,8 +68,6 @@ export class WebChatComponent implements OnInit {
     this.activeUserName = user.name;
     this.chatdb.getUserMessages(this.activeUserId).subscribe(s => {
       this.messages = s.json();
-      console.log(this.messages);
-      console.log(this.activeUserId);
     });
   }
   onTyping() {
@@ -94,7 +85,6 @@ export class WebChatComponent implements OnInit {
     this.newMessage = '';
   }
   onSearch(fullname: string,  value: string ) {
-    console.log(value);
     return fullname.toLowerCase().indexOf(value.toLowerCase()) >= 0  || value.length === 0;
   }
 }

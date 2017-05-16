@@ -16,14 +16,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   joinned = false;
   newUser = { nickname: '', room: '' };
   msgData = { room: '', nickname: '', message: '' };
-  socket = io('http://localhost:9000');
-
+  // socket = io('http://localhost:9000');
+  socket = io('https://cyclingapi.herokuapp.com/');
   constructor(private chatService: ChatService, public auth: Auth) {}
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user !== null) {
-      console.log('ngInit');
       this.getChatByRoom(user.room);
       this.msgData = { room: user.room, nickname: user.nickname, message: '' };
       this.joinned = true;
@@ -68,7 +67,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   sendMessage() {
     this.chatService.saveChat(this.msgData).then((result) => {
-      console.log(result);
       this.socket.emit('save-message', result);
     }, (err) => {
       console.log(err);

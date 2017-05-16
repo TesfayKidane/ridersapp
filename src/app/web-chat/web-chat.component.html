@@ -1,4 +1,4 @@
-<div class="col-md-3 left" style="" *ngIf="auth.authenticated()">
+<div class="col-md-3 col-sm-3 left" style="" *ngIf="auth.authenticated()">
   <div class="top">
     <input type="text" (onkeyup)="0" #search>
     <a href="javascript:;" class="search"></a>
@@ -14,7 +14,7 @@
       </li>
     </ul>
   </div>
-  <div class="col-md-8 right" >
+  <div class="col-md-8 col-sm-8 right" *ngIf="auth.authenticated()" >
     <div class="top"><span>To: <span class="name">{{activeUserName}}</span></span></div>
     <div class="chat active-chat" >
       <div #scrollMe style="overflow-y: auto; max-height: 500px">
