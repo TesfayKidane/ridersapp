@@ -1,57 +1,64 @@
-<div class="row" *ngIf="auth.authenticated()">
-  <button class="btn btn-primary" (click)="showClubs()">{{btnText}}</button>
-  <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
-</div>
-<div class="row" *ngIf="auth.authenticated()">
-  <sebm-google-map [latitude]="lat" [longitude]="lng"
-                   [zoom]="zoom"
-                   (mapClick)="mapClicked($event)">
+<div class="container" *ngIf="auth.authenticated()">
+  <div class="row" *ngIf="auth.authenticated()">
+    <button md-raised-button color="primary" (click)="showClubs()">{{btnText}}</button>
+    <a [routerLink]="['/club/new']" md-raised-button color="accent">Create club</a>
+    <br/><br/>
+  </div>
+  <div class="row" *ngIf="auth.authenticated()">
+    <sebm-google-map [latitude]="lat" [longitude]="lng"
+                     [zoom]="zoom"
+                     (mapClick)="mapClicked($event)">
 
-    <sebm-google-map-marker
-      *ngFor="let m of markers; let i = index"
-      [latitude]="m.lat"
-      [longitude]="m.lng"
+      <sebm-google-map-marker
+        *ngFor="let m of markers; let i = index"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
 
-      (markerClick)="clickedMarker(m.label, i)"
-      [markerDraggable]="m.draggable"
-      (dragEnd)="markerDragEnd(m, $event)"
-    >
-      <sebm-google-map-info-window [disableAutoPan]="true">
-        <div style="text-align: center"><strong>{{m.clubName}}</strong></div>
-        <div>
-          City: {{m.clubCity}}
-        </div>
-        <div>
-          Description: {{m.clubDescription}}
-        </div>
-      </sebm-google-map-info-window>
-<!--https://plnkr.co/edit/zyzs6LtVpQKeiz9JryJ9?p=preview-->
-    </sebm-google-map-marker>
-    <sebm-google-map-circle *ngIf="showCircle"
-                            [latitude]="lat"
-                            [longitude]="lng"
-                            [radius]="5000"
-                            [fillColor]="'red'"
-                            [circleDraggable]="true"
-                            [editable]="true">
-    </sebm-google-map-circle>
-  </sebm-google-map>
+        (markerClick)="clickedMarker(m.label, i)"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)"
+      >
+        <sebm-google-map-info-window [disableAutoPan]="true">
+          <div style="text-align: center"><strong>{{m.clubName}}</strong></div>
+          <div>
+            City: {{m.clubCity}}
+          </div>
+          <div>
+            Description: {{m.clubDescription}}
+          </div>
+        </sebm-google-map-info-window>
+  <!--https://plnkr.co/edit/zyzs6LtVpQKeiz9JryJ9?p=preview-->
+      </sebm-google-map-marker>
+      <sebm-google-map-circle *ngIf="showCircle"
+                              [latitude]="lat"
+                              [longitude]="lng"
+                              [radius]="5000"
+                              [fillColor]="'red'"
+                              [circleDraggable]="true"
+                              [editable]="true">
+      </sebm-google-map-circle>
+    </sebm-google-map>
+  </div>
+  <div class="row">
+    <br/>
+    <table class="table table-bordered table-responsive table-condensed table-striped">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>City</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let m of markers; let i = index">
+          <td>{{m.clubName}}</td>
+          <td>{{m.clubCity}}</td>
+          <td>{{m.clubDescription}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="row">
-  <table class="table table-bordered table-responsive table-condensed table-striped">
-    <thead>
-      <tr>
-        <td>Name</td>
-        <td>City</td>
-        <td>Description</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr  *ngFor="let m of markers; let i = index">
-        <td>{{m.clubName}}</td>
-        <td>{{m.clubCity}}</td>
-        <td>{{m.clubDescription}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="!auth.authenticated()">
+  <app-landing-page></app-landing-page>
 </div>

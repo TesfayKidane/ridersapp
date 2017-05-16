@@ -4,8 +4,8 @@ import {RequestOptions, Headers} from '@angular/http';
  */
 
 export class SharedService {
-      // static API_URL = 'http://localhost:9000/';
-      static API_URL = 'https://cyclingapi.herokuapp.com/';
+      static API_URL = 'http://localhost:9000/';
+      //static API_URL = 'https://cyclingapi.herokuapp.com/';
       static API_CHAT = SharedService.API_URL + 'chat/';
       static API_URL_USERS = SharedService.API_URL + 'users/';
       static API_USER_ADD = SharedService.API_URL_USERS + 'adduser/';

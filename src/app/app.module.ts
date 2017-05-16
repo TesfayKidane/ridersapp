@@ -30,6 +30,7 @@ import {SearchUserPipe} from './services/searchUserPipe';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import { CreateAnnouncementComponent } from './announcement/create-announcement/create-announcement.component';
 import {AnnouncementService} from './services/announcement.service';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const appRoutes: Routes = [
   { path: 'homepage', component: HomeComponent },
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     WebChatComponent,
     SearchUserPipe,
     ProfileComponent,
-    CreateAnnouncementComponent
+    CreateAnnouncementComponent,
+    LandingPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

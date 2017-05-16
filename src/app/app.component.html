@@ -1,5 +1,5 @@
-<md-sidenav-container>
-  <md-sidenav #sidenav mode="side"  opened="true" class="app-sidenav">
+<md-sidenav-container *ngIf="auth.authenticated()">
+  <md-sidenav  #sidenav mode="side"  opened="true" class="app-sidenav">
     <app-profile *ngIf="auth.authenticated()" ></app-profile>
   </md-sidenav>
   <md-toolbar color="accent" class="mat-accent">
@@ -16,3 +16,7 @@
     <router-outlet></router-outlet>
   </div>
 </md-sidenav-container>
+
+<div *ngIf="!auth.authenticated()">
+  <router-outlet></router-outlet>
+</div>
