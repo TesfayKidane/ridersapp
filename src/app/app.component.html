@@ -1,12 +1,12 @@
 <md-sidenav-container>
-  <md-sidenav #sidenav mode="side"  class="app-sidenav">
+  <md-sidenav #sidenav mode="side"  opened="true" class="app-sidenav">
     <app-profile *ngIf="auth.authenticated()" ></app-profile>
   </md-sidenav>
   <md-toolbar color="accent" class="mat-accent">
     <button *ngIf="auth.authenticated()" class="app-icon-button" (click)="sidenav.toggle()">
       <i class="material-icons app-toolbar-menu">menu</i>
     </button>
-    Bike Riders Meetup Platform
+    Meet and Ride Your Bicycle Together !
     <span class="app-toolbar-filler"></span>
     <button md-raised-button color="primary" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
   </md-toolbar>

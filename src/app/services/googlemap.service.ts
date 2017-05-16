@@ -1,6 +1,5 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
-import {SharedService} from "./SharedService";
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 /**
  * Created by sherxon on 4/25/17.
  */
